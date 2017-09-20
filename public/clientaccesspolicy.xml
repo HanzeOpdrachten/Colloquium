@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<access-policy>
+  <cross-domain-access>
+    <policy>
+      <!-- Read this: https://msdn.microsoft.com/en-us/library/cc645032(v=vs.95).aspx -->
+
+      <!-- Most restrictive policy: -->
+      <allow-from/>
+      <grant-to/>
+
+      <!-- Least restrictive policy: -->
+      <!--
+      <allow-from http-methods="*" http-request-headers="*">
+        <domain uri="*"/>
+        <domain uri="http://*">
+      </allow-from>
+      <grant-to>
+        <resource path="/" include-subpaths="true"/>
+      </grant-to>
+      -->
+    </policy>
+  </cross-domain-access>
+</access-policy>
