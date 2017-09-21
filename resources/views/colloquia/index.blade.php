@@ -23,9 +23,11 @@
         <td>{{ $colloquium->speaker }}</td>
         <td>{{ $colloquium->location }}</td>
         <td>{{ $colloquium->description }}</td>
-        <td>{{ $colloquium->start_date }}</td>
+        <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
         <td>{{ $colloquium->language }}</td>
-        <td><span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span></th>
+        <td>
+          <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
+        </td>
       </tr>
     @endforeach
     </tbody>
