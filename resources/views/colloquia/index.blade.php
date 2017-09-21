@@ -8,27 +8,27 @@
   <table class="table table-responsive">
     <thead class="thead-inverse">
       <tr>
+        <th>Training</th>
         <th>Title</th>
         <th>Speaker</th>
         <th>Location</th>
         <th>Description</th>
         <th>Date</th>
         <th>Language</th>
-        <th>Training</th>
       </tr>
     </thead>
     <tbody>
     @foreach($colloquia as $colloquium)
       <tr>
+        <td>
+          <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
+        </td>
         <td>{{ $colloquium->title }}</td>
         <td>{{ $colloquium->speaker }}</td>
         <td>{{ $colloquium->location }}</td>
         <td>{{ $colloquium->description }}</td>
         <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
         <td>{{ $colloquium->language }}</td>
-        <td>
-          <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
-        </td>
       </tr>
     @endforeach
     </tbody>
