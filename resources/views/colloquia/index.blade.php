@@ -4,7 +4,8 @@
 <div class="starter-template">
   <h1>Colloquia</h1>
 
-  <table class="table">
+  <div class="col-xs-12 col-sm-12">
+  <table class="table table-responsive">
     <thead class="thead-inverse">
       <tr>
         <th>Title</th>
@@ -32,6 +33,7 @@
     @endforeach
     </tbody>
   </table>
+  </div>
 </div>
 
 @endsection
