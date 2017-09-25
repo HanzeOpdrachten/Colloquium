@@ -38,4 +38,40 @@ class UserPolicy
 
         return false;
     }
+
+    /**
+     * Determine whether the user may update an existing user.
+     *
+     * @param User $user
+     * @param User $target
+     * @return bool
+     */
+    public function update(User $user, User $target)
+    {
+        if ($user->id == $target->id) { // A user may always update itself.
+            return true;
+        } elseif ($user->isAdmin()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Determine whether the user may delete an existing user.
+     *
+     * @param User $user
+     * @param User $target
+     * @return bool
+     */
+    public function delete(User $user, User $target)
+    {
+        if ($user->id == $target->id) { // A user cannot delete itself.
+            return false;
+        } elseif ($user->isAdmin()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
