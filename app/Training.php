@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Training extends Model
 {
 	
-	protected $fillable = ['name', 'color',]; 
+	protected $guarded = ['id']; 
 	protected $table    = 'training';
     public $timestamps  = false;
 

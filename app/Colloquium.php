@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Colloquium extends Model
 {
 
-    protected $fillable = [
-        'title', 'training_id', 'start_date', 'end_date',  'speaker',  'location',  'description',  'status',  'language',
-    ];
+    protected $guarded = ['id'];
     protected $table    = 'Colloquia';
     public $timestamps  = false;
 
