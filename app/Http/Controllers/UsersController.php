@@ -69,24 +69,34 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $roles = [
+            User::ADMIN => 'Administrator',
+            User::PLANNER => 'Planner',
+        ];
+
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->fill($request->all());
+        $user->save();
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'De gebruiker is bijgewerkt.');
     }
 
     /**

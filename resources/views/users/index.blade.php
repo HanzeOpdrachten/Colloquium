@@ -12,6 +12,7 @@
                     <th>Naam</th>
                     <th>E-mailadres</th>
                     <th>Rol</th>
+                    <th>Opties</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,9 @@
                         @elseif ($user->isPlanner())
                             <td>Planner</td>
                         @endif
+                        <td>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Bewerken</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
