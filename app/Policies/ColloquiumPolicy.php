@@ -10,6 +10,17 @@ class ColloquiumPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user may view existing colloquia.
+     *
+     * @return bool
+     */
+    public function view()
+    {
+        // Everyone may see all colloquia.
+        return true;
+    }
+
+    /**
      * Determine whether the user may create new colloquia.
      *
      * @param User $user
