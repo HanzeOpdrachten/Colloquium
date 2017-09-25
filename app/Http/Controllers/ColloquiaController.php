@@ -35,7 +35,7 @@ class ColloquiaController extends Controller
       Colloquium::create($request->all());
 
       return redirect()
-        ->route('colloquia.index')
-        ->with('succes', 'Colloquium toegevoegd.');
+             ->route('colloquia.index')
+             ->with('succes', 'Colloquium toegevoegd.');
     }
 }

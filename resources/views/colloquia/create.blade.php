@@ -84,7 +84,12 @@
 
                 <div class="form-group">
                   <label for="start_date">Datum</label>
-                  <input class="form-control {{ $errors->has('language') ? 'is-invalid' : '' }}" type="date" name="start_date">
+                  <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="datetime-local" name="start_date">
+                  @if ($errors->has('start_date'))
+                      <div class="invalid-feedback">
+                          {{ $errors->first('start_date') }}
+                      </div>
+                  @endif
                 </div>
 
                 <div class="form-group">
