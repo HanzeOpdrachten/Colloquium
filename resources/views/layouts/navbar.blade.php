@@ -10,7 +10,7 @@
             <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/colloquia">Colloquia</a>
+            <a class="nav-link" href="{{ route('colloquia.index') }}">Colloquia</a>
           </li>
             @guest
                 <li class="nav-item">
@@ -18,13 +18,20 @@
                 </li>
             @endguest
             @auth
+                @can('view', \App\User::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users.index') }}">Gebruikers</a>
+                    </li>
+                @endcan
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit();">Uitloggen</a>
                 </li>
-                <form id="logoutForm" method="post" action="{{ route('logout') }}">
-                    {{ csrf_field() }}
-                </form>
             @endauth
         </ul>
       </div>
     </nav>
+    @auth
+        <form id="logoutForm" method="post" action="{{ route('logout') }}">
+            {{ csrf_field() }}
+        </form>
+    @endauth
