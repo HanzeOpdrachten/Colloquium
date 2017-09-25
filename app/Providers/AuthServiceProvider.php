@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Colloquium;
+use App\Policies\ColloquiumPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
