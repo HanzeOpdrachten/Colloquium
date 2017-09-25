@@ -43,7 +43,7 @@ class Colloquium extends Model
      * @var array
      */
     protected $dates = [
-        'start_date', 
+        'start_date',
         'end_date',
     ];
 

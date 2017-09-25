@@ -5,6 +5,14 @@
   <h1>Colloquia</h1>
 
   <div class="col-xs-12 col-sm-12">
+
+  @auth
+    @if(Auth::user()->isAdmin() || Auth::user()->isPlanner())
+      @include('layouts.alerts')
+      <a href="{{ route('colloquia.create') }}" class="btn btn-primary float-right">Colloquium toevoegen</a>
+    @endif
+  @endauth
+
   <table class="table table-responsive">
     <thead class="thead-inverse">
       <tr>

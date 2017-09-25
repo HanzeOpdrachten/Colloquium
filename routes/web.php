@@ -26,7 +26,6 @@ Route::get('/home', 'HomeController@index')->name('home');
  * Authenticated routes.
  */
 Route::middleware('auth')->group(function() {
-
     Route::get('/users', 'UsersController@index')->name('users.index');
     Route::get('/users/create', 'UsersController@create')->name('users.create');
     Route::post('/users', 'UsersController@store')->name('users.store');
@@ -34,4 +33,6 @@ Route::middleware('auth')->group(function() {
     Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
     Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
 
+    Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');
+    Route::post('/colloquia', 'ColloquiaController@store')->name('colloquia.store');
 });
