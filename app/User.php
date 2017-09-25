@@ -30,4 +30,34 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Check if the user is an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return ($this->attributes['role'] == self::ADMIN);
+    }
+
+    /**
+     * Check if the user is a planner.
+     *
+     * @return bool
+     */
+    public function isPlanner()
+    {
+        return ($this->attributes['role'] == self::PLANNER);
+    }
+
+    /**
+     * Check if the user is a student.
+     *
+     * @return bool
+     */
+    public function isStudent()
+    {
+        return ($this->attributes['role'] == self::STUDENT);
+    }
 }

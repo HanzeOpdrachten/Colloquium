@@ -16,7 +16,6 @@ class Colloquium extends Model
      */
     const CANCELED = 2;
 
-
     /**
      * The attributes that are not mass assignable.
      *

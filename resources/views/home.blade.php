@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Welkom terug, {{ Auth::user()->name }}
                 </div>
             </div>
         </div>
