@@ -14,8 +14,6 @@ class ColloquiaController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Colloquium::class);
-
         $colloquia = Colloquium::oldest('start_date')->get();
 
         return view('colloquia.index', compact('colloquia'));

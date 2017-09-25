@@ -23,7 +23,6 @@ class Colloquium extends Model
      */
     protected $guarded = ['id'];
 
-
     /**
      * The table associated with the model.
      *
