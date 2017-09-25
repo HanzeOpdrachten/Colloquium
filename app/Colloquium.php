@@ -30,7 +30,7 @@ class Colloquium extends Model
      *
      * @var string
      */
-    protected $table = 'Colloquia';
+    protected $table = 'colloquia';
 
     /**
      * Indicates if the model should be timestamped.
