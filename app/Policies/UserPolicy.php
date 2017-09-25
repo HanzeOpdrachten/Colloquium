@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Policies;
+
+use App\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class UserPolicy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user may view users.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function view(User $user)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user may create users.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user may update an existing user.
+     *
+     * @param User $user
+     * @param User $target
+     * @return bool
+     */
+    public function update(User $user, User $target)
+    {
+        if ($user->id == $target->id) { // A user may always update itself.
+            return true;
+        } elseif ($user->isAdmin()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Determine whether the user may delete an existing user.
+     *
+     * @param User $user
+     * @param User $target
+     * @return bool
+     */
+    public function delete(User $user, User $target)
+    {
+        if ($user->id == $target->id) { // A user cannot delete itself.
+            return false;
+        } elseif ($user->isAdmin()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
