@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        @include('layouts.alerts')
         <div class="float-right">
             <a href="{{ route('users.create') }}" class="btn btn-primary">Gebruikers toevoegen</a>
         </div>

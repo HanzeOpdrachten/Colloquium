@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\StoreRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -31,18 +32,27 @@ class UsersController extends Controller
     {
         $this->authorize('create', User::class);
 
-        return view('users.create');
+        $roles = [
+            User::ADMIN => 'Administrator',
+            User::PLANNER => 'Planner',
+        ];
+
+        return view('users.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        User::create($request->all());
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Gebruiker toegevoegd.');
     }
 
     /**
