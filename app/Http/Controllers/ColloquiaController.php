@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\StoreRequest;
-use App\Colloquium;
-use App\User;
 use App\Training;
+use App\Colloquium;
 use Illuminate\Http\Request;
+use App\Http\Requests\Colloquium\StoreRequest;
 
 class ColloquiaController extends Controller
 {
@@ -18,24 +17,36 @@ class ColloquiaController extends Controller
     public function index()
     {
         $colloquia = Colloquium::oldest('start_date')->get();
+
         return view('colloquia.index', compact('colloquia'));
     }
 
+    /**
+     * Display the form for creation.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
-      $speakers = User::where('role', '=', 2)->get();
-      $trainings = Training::all();
+        $this->authorize('create', Colloquium::class);
 
-      $this->authorize('create', Colloquium::class);
-      return view('colloquia.create', compact('speakers', 'trainings'));
+        $trainings = Training::all();
+
+        return view('colloquia.create', compact('trainings'));
     }
 
+    /**
+     * Store a new resource.
+     *
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreRequest $request)
     {
-      Colloquium::create($request->all());
+        Colloquium::create($request->all());
 
-      return redirect()
-             ->route('colloquia.index')
-             ->with('succes', 'Colloquium toegevoegd.');
+        return redirect()
+                ->route('colloquia.index')
+                ->with('success', 'Colloquium toegevoegd.');
     }
 }

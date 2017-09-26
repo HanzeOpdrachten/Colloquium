@@ -8,7 +8,7 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="title">Titel</label>
-                    <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" >
+                    <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" value="{{ old('title') }}">
                     @if ($errors->has('title'))
                         <div class="invalid-feedback">
                             {{ $errors->first('title') }}
@@ -17,8 +17,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="role">Opleiding</label>
-                    <select class="form-control {{ $errors->has('training') ? 'is-invalid' : '' }}" name="training_id">
+                    <label for="training">Opleiding</label>
+                    <select class="form-control {{ $errors->has('training') ? 'is-invalid' : '' }}" name="training_id" id="training" value="{{ old('training') }}">
                         @foreach($trainings as $training)
                             @if (old('training') == $training)
                                 <option value="{{ $training->id }}" selected>{{ $training->name }}</option>
@@ -35,16 +35,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="role">Spreker</label>
-                    <select class="form-control {{ $errors->has('speaker') ? 'is-invalid' : '' }}" name="speaker">
-                        @foreach($speakers as $speaker)
-                            @if (old('speaker') == $speaker)
-                                <option value="{{ $speaker->id }}" selected>{{ $speaker->name }}</option>
-                            @else
-                                <option value="{{ $speaker->id }}">{{ $speaker->name }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                    <label for="speaker">Spreker</label>
+                    <input type="text" class="form-control {{ $errors->has('speaker') ? 'is-invalid' : '' }}" name="speaker" id="speaker" value="{{ old('speaker') }}">
                     @if ($errors->has('speaker'))
                         <div class="invalid-feedback">
                             {{ $errors->first('speaker') }}
@@ -53,7 +45,7 @@
                 </div>
                 <div class="form-group">
                     <label for="location">Locatie</label>
-                    <input type="text" class="form-control {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location" id="location">
+                    <input type="text" class="form-control {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location" id="location" value="{{ old('location') }}">
                     @if ($errors->has('location'))
                         <div class="invalid-feedback">
                             {{ $errors->first('location') }}
@@ -62,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Omschrijving</label>
-                    <input type="text" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">
+                    <textarea class="form-control" name="description" id="description" style="min-height:100px; max-height:200px;">{{ old('description') }}</textarea>
                     @if ($errors->has('description'))
                         <div class="invalid-feedback">
                             {{ $errors->first('description') }}
@@ -70,26 +62,31 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="role">Taal</label>
-                    <select class="form-control {{ $errors->has('language') ? 'is-invalid' : '' }}" name="language">
-                      <option value="Nederlands" selected>Nederlands</option>
-                      <option class="Engels">Engels</option>
-                    </select>
+                    <label for="language">Taal</label>
+                    <input type="text" class="form-control {{ $errors->has('language') ? 'is-invalid' : '' }}" name="language" id="language" value="{{ old('language') }}">
                     @if ($errors->has('language'))
                         <div class="invalid-feedback">
                             {{ $errors->first('language') }}
                         </div>
                     @endif
                 </div>
-
                 <div class="form-group">
-                  <label for="start_date">Datum</label>
-                  <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="datetime-local" name="start_date">
+                  <label for="start-date">Startdatum</label>
+                  <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="datetime-local" name="start_date" id="start-date" value="{{ old('start_date') }}">
                   @if ($errors->has('start_date'))
                       <div class="invalid-feedback">
                           {{ $errors->first('start_date') }}
                       </div>
                   @endif
+                </div>
+                <div class="form-group">
+                    <label for="end-date">Einddatum</label>
+                    <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="datetime-local" name="end_date" id="end-date">
+                    @if ($errors->has('end_date'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('end_date') }}
+                        </div>
+                    @endif
                 </div>
 
                 <div class="form-group">

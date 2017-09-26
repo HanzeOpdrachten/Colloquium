@@ -18,7 +18,6 @@ Route::get('/', function () {
 
 
 Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 
