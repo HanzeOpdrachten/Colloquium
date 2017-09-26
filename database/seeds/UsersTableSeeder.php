@@ -41,5 +41,17 @@ class UsersTableSeeder extends Seeder
         foreach($users as $user) {
             User::create($user);
         }
+
+        // Subscribe the `planner` to a few trainings
+        $subscriptions = [
+            4, 3, 5,
+        ];
+
+        $user = User::find(2);
+
+        foreach($subscriptions as $training) {
+            $user->subscriptions()
+                ->attach($training);
+        }
     }
 }

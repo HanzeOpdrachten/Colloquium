@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Policies\TrainingPolicy;
+use App\Training;
 use App\User;
 use App\Colloquium;
 use App\Policies\UserPolicy;
@@ -19,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Colloquium::class => ColloquiumPolicy::class,
         User::class => UserPolicy::class,
+        Training::class => TrainingPolicy::class,
     ];
 
     /**
