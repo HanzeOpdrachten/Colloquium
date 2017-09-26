@@ -60,4 +60,25 @@ class User extends Authenticatable
     {
         return ($this->attributes['role'] == self::STUDENT);
     }
+
+    /**
+     * Belongs to many trainings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function subscriptions()
+    {
+        return $this->belongsToMany(Training::class, 'mail_subscriptions', 'user_id', 'training_id', 'id');
+    }
+
+    /**
+     * Check if the user is subscribed to the given training.
+     *
+     * @param Training $training
+     * @return mixed
+     */
+    public function isSubscribed(Training $training)
+    {
+        return ($this->subscriptions->contains($training));
+    }
 }

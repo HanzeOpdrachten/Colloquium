@@ -18,7 +18,7 @@ class Training extends Model
      *
      * @var string
      */
-	protected $table = 'training';
+	protected $table = 'trainings';
 
 	/**
      * Indicates if the model should be timestamped.
@@ -35,5 +35,15 @@ class Training extends Model
     public function colloquia()
     {
         return $this->hasMany(Colloquium::class);
+    }
+
+    /**
+     * Belongs to many users (a.k.a. subscribers).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function subscribers()
+    {
+        return $this->belongsToMany(User::class, 'mail_subscriptions', 'training_id', 'user_id', 'id');
     }
 }

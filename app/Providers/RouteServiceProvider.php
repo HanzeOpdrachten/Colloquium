@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Training;
 use App\User;
 use App\Colloquium;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::model('user', User::class);
         Route::model('colloquium', Colloquium::class);
+        Route::model('training', Training::class);
 
         parent::boot();
     }
