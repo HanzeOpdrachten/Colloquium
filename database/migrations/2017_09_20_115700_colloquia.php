@@ -24,7 +24,7 @@ class Colloquia extends Migration
             $table->string('description', 140);
             $table->tinyInteger('status');
             $table->string('language', 80);
-            $table->foreign('training_id')->references('id')->on('training')->onDelete('cascade');
+            $table->foreign('training_id')->references('id')->on('trainings')->onDelete('cascade');
         });
     }
 

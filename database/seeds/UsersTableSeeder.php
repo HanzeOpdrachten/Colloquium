@@ -29,17 +29,29 @@ class UsersTableSeeder extends Seeder
                 'password' => bcrypt('secret'),
                 'role' => User::PLANNER,
             ],
-            [
-                'id' => 3,
-                'name' => 'Damian van Olsson',
-                'email' => 'd.v.olsson@st.hanze.nl',
-                'password' => bcrypt('secret'),
-                'role' => User::STUDENT,
-            ],
+//            [
+//                'id' => 3,
+//                'name' => 'Damian van Olsson',
+//                'email' => 'd.v.olsson@st.hanze.nl',
+//                'password' => bcrypt('secret'),
+//                'role' => User::STUDENT,
+//            ],
         ];
 
         foreach($users as $user) {
             User::create($user);
+        }
+
+        // Subscribe the `planner` to a few trainings
+        $subscriptions = [
+            4, 3, 5,
+        ];
+
+        $user = User::find(2);
+
+        foreach($subscriptions as $training) {
+            $user->subscriptions()
+                ->attach($training);
         }
     }
 }

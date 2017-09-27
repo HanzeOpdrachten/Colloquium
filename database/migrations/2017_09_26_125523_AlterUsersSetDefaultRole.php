@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Training extends Migration
+class AlterUsersSetDefaultRole extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class Training extends Migration
      */
     public function up()
     {
-        Schema::create('trainings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 80)->unique();
-            $table->string('color', 8)->unique();
-        });
+		Schema::table("users", function (Blueprint $table) {
+			$table->integer("role")->default(1)->change(); // Planner
+		});
     }
 
     /**
@@ -27,6 +25,6 @@ class Training extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trainings');
+        //
     }
 }
