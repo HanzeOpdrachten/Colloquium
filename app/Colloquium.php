@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Colloquium extends Model
 {
     /**
-     * The colloquium is active.
+     * The colloquium is accepted by planner.
      */
-    const ACTIVE = 1;
+    const ACCEPTED = 1;
+
+    /**
+     * The colloquium is declined by planner.
+     */
+    const DECLINED = 2;
 
     /**
      * The colloquium is canceled.
@@ -52,8 +57,18 @@ class Colloquium extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function training() {
+    public function training()
+    {
         return $this->belongsTo(Training::class);
     }
 
+    /**
+     * Has one planner.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function planner()
+    {
+        return $this->belongsTo(User::class, 'planner_id');
+    }
 }

@@ -35,6 +35,13 @@ class ColloquiaController extends Controller
         return view('colloquia.create', compact('trainings'));
     }
 
+    public function request()
+    {
+        $trainings = Training::all();
+
+        return view('colloquia.create', compact('trainings'));
+    }
+
     /**
      * Store a new resource.
      *

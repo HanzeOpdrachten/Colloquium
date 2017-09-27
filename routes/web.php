@@ -18,8 +18,8 @@ Route::get('/', function () {
 
 
 Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
+Route::get('/colloquia/request', 'ColloquiaController@request')->name('colloquia.request');
 Route::get('/home', 'HomeController@index')->name('home');
-
 
 /*
  * Authenticated routes.
