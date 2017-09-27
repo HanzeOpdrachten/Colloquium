@@ -42,9 +42,11 @@ class UsersTableSeeder extends Seeder
             User::create($user);
         }
 
+        \DB::table('mail_subscriptions')->truncate();
+
         // Subscribe the `planner` to a few trainings
         $subscriptions = [
-            4, 3, 5,
+            1, 2, 3,
         ];
 
         $user = User::find(2);

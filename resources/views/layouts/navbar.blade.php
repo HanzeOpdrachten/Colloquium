@@ -13,7 +13,7 @@
             <a class="nav-link" href="{{ route('colloquia.index') }}">Colloquia</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('colloquia.request') }}">Colloquia toevoegen</a>
+                <a class="nav-link" href="{{ route('colloquia.create') }}">Colloquia toevoegen</a>
             </li>
             @can('view', \App\Training::class)
                 <li class="nav-item">

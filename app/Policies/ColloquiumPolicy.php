@@ -28,13 +28,7 @@ class ColloquiumPolicy
      */
     public function create(User $user)
     {
-        if ($user->isAdmin()) {
-            return true;
-        } elseif ($user->isPlanner()) {
-            return true;
-        } else {
-            return false;
-        }
+        return true;
     }
 
     /**
@@ -45,13 +39,7 @@ class ColloquiumPolicy
      */
     public function update(User $user)
     {
-        if ($user->isAdmin()) {
-            return true;
-        } elseif ($user->isPlanner()) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($user->isAdmin() || $user->isPlanner());
     }
 
     /**
@@ -60,13 +48,19 @@ class ColloquiumPolicy
      * @param User $user
      * @return bool
      */
-    public function delete(User $user) {
-        if ($user->isAdmin()) {
-            return true;
-        } elseif ($user->isPlanner()) {
-            return true;
-        } else {
-            return false;
-        }
+    public function delete(User $user)
+    {
+        return ($user->isAdmin() || $user->isPlanner());
+    }
+
+    /**
+     * Determine whether the user may review existing colloquia.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function review(User $user)
+    {
+        return ($user->isAdmin() || $user->isPlanner());
     }
 }

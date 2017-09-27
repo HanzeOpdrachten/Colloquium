@@ -14,7 +14,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return ($this->user()->can('create', Colloquium::class));
+        return true;
     }
 
     /**
@@ -30,6 +30,7 @@ class StoreRequest extends FormRequest
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'speaker' => 'required|max:80',
+            'email' => 'nullable|max:255|email',
             'location' => 'required|max:80',
             'description' => 'required|max:140',
             'status' => 'required',

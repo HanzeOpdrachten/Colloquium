@@ -24,9 +24,10 @@ class ColloquiaTableSeeder extends Seeder
                 'start_date' => Carbon::now()->addDay(5),
                 'end_date' => Carbon::now()->addDay(5)->addHour(1),
                 'speaker' => 'John Doe',
+                'email' => 'john.doe@st.hanze.nl',
                 'location' => 'ZP11/A139 T30',
                 'description' => 'In scelerisque fermentum mauris a suscipit. Proin eget nunc non velit suscipit vestibulum.',
-                'status' => Colloquium::ACTIVE,
+                'status' => Colloquium::ACCEPTED,
                 'language' => 'Nederlands',
             ]
         ];

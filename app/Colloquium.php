@@ -7,19 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Colloquium extends Model
 {
     /**
+     * The colloquium is awaiting to be accepted.
+     */
+    const AWAITING = 1;
+
+    /**
      * The colloquium is accepted by planner.
      */
-    const ACCEPTED = 1;
+    const ACCEPTED = 2;
 
     /**
      * The colloquium is declined by planner.
      */
-    const DECLINED = 2;
+    const DECLINED = 3;
 
     /**
      * The colloquium is canceled.
      */
-    const CANCELED = 2;
+    const CANCELED = 4;
 
     /**
      * The attributes that are not mass assignable.

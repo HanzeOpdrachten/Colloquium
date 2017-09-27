@@ -43,6 +43,19 @@
                         </div>
                     @endif
                 </div>
+
+                @guest
+                    <div class="form-group">
+                        <label for="email">E-mailadres</label>
+                        <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" id="email" value="{{ old('email') }}">
+                        @if ($errors->has('email'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('email') }}
+                            </div>
+                        @endif
+                    </div>
+                @endguest
+
                 <div class="form-group">
                     <label for="location">Locatie</label>
                     <input type="text" class="form-control {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location" id="location" value="{{ old('location') }}">
