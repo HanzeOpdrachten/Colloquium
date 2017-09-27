@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\Colloquium\Status;
 use App\Training;
 use App\Colloquium;
-use App\User;
-use Illuminate\Http\Request;
+use App\Notifications\Colloquium\Status;
 use App\Http\Requests\Colloquium\StoreRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\Colloquium\UpdateRequest;
 
 class ColloquiaController extends Controller
 {
@@ -21,9 +17,9 @@ class ColloquiaController extends Controller
      */
     public function index()
     {
-        Notification::send(false, new Status());
-
-        $colloquia = Colloquium::oldest('start_date')->get();
+        $colloquia = Colloquium::oldest('start_date')
+            ->where('status', '=', Colloquium::ACCEPTED)
+            ->get();
 
         return view('colloquia.index', compact('colloquia'));
     }
@@ -36,8 +32,13 @@ class ColloquiaController extends Controller
     public function create()
     {
         $trainings = Training::all();
+        $statuses = [
+            Colloquium::AWAITING => 'Wachten op goedkeuring',
+            Colloquium::ACCEPTED => 'Goedgekeurd',
+            Colloquium::DECLINED => 'Geweigerd',
+        ];
 
-        return view('colloquia.create', compact('trainings'));
+        return view('colloquia.create', compact('trainings', 'statuses'));
     }
 
     /**
@@ -48,29 +49,47 @@ class ColloquiaController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $attributes = $request->all();
+        $colloquium = Colloquium::create($request->all());
 
-        // Before we store any colloquia, we must check who posted it.
-        // In case a `planner` or `administrator` posted it, the status is `accepted` by default.
-        // Any other case the status is `awaiting` for the planner to accept  it.
-        if (Auth::check() && $request->user()->can('review', Colloquium::class)) {
-            $attributes['status'] = Colloquium::ACCEPTED;
-        } else {
-            $attributes['status'] = Colloquium::AWAITING;
-        }
-
-        $colloquium = Colloquium::create($attributes);
+        // Resync the data from the database because a few attributes are default in de database
+        // but not in Eloquent. So Eloquent will not retrieve them right away.
+        // For that we have to retrieve the record from the database.
+        $colloquium = $colloquium->fresh();
 
         // Send an e-mail to all planners who are subscribed to the given training.
-        if ($attributes['status'] == Colloquium::AWAITING) {
-            $colloquium->token = str_random(10);
-            $colloquium->save();
+        if ($colloquium->status == Colloquium::AWAITING) {
+            // Set a token
+            $colloquium->setToken();
 
-            Notification::send(false, new Status($attributes['email']));
+            // Send an e-mail to the speaker
+            $colloquium->notify(new Status($colloquium));
+
+            return redirect()
+                ->route('colloquia.index')
+                ->with('success', 'Colloquium is aangemaakt en wacht op goedkeuring. Je hebt een e-mail ontvangen met een link waarmee je de status kunt bijhouden.');
         }
 
         return redirect()
                 ->route('colloquia.index')
                 ->with('success', 'Colloquium toegevoegd.');
+    }
+
+    /**
+     * Display the edit form for the resource.
+     *
+     * @param Colloquium $colloquium
+     * @param UpdateRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Colloquium $colloquium, UpdateRequest $request)
+    {
+        $trainings = Training::all();
+        $statuses = [
+            Colloquium::AWAITING => 'Wachten op goedkeuring',
+            Colloquium::ACCEPTED => 'Goedgekeurd',
+            Colloquium::DECLINED => 'Geweigerd',
+        ];
+
+        return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Colloquium;
 
 use App\Colloquium;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreRequest extends FormRequest
 {
@@ -24,17 +25,22 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title' => 'required|max:80',
-            'training_id' => 'required|exists:training,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'training_id' => 'required|exists:trainings,id',
+            'start_date' => 'required',
+            'end_date' => 'required',
             'speaker' => 'required|max:80',
-            'email' => 'nullable|max:255|email',
             'location' => 'required|max:80',
             'description' => 'required|max:140',
-            'status' => 'required',
+            'status' => 'in:1,2,3,4',
             'language' => 'required|max:80',
         ];
+
+        if (Auth::guest()) {
+            $rules['email'] = 'required|max:255|email';
+        }
+
+        return $rules;
     }
 }

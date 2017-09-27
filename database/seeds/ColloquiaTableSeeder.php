@@ -29,6 +29,7 @@ class ColloquiaTableSeeder extends Seeder
                 'description' => 'In scelerisque fermentum mauris a suscipit. Proin eget nunc non velit suscipit vestibulum.',
                 'status' => Colloquium::ACCEPTED,
                 'language' => 'Nederlands',
+                'token' => str_random(10),
             ]
         ];
 

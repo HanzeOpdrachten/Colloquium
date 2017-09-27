@@ -2,10 +2,14 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Colloquium extends Model
 {
+    use Notifiable;
+
     /**
      * The colloquium is awaiting to be accepted.
      */
@@ -56,6 +60,55 @@ class Colloquium extends Model
         'start_date',
         'end_date',
     ];
+
+    /**
+     * Reformat the start date attribute.
+     *
+     * @param $value
+     */
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::parse($value)->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Reformat the end date attribute.
+     *
+     * @param $value
+     */
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = Carbon::parse($value)->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return mixed
+     */
+    public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set a new unique token.
+     *
+     * @return string
+     */
+    public function setToken()
+    {
+        $token = str_random(10);
+
+        if (self::where('token', '=', $token)->exists()) {
+            $this->setToken();
+        }
+
+        $this->token = $token;
+        $this->save();
+
+        return $token;
+    }
 
     /**
      * Belongs to one training.

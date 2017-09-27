@@ -94,13 +94,33 @@
                 </div>
                 <div class="form-group">
                     <label for="end-date">Einddatum</label>
-                    <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="datetime-local" name="end_date" id="end-date">
+                    <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="datetime-local" name="end_date" id="end-date" value="{{ old('end_date') }}">
                     @if ($errors->has('end_date'))
                         <div class="invalid-feedback">
                             {{ $errors->first('end_date') }}
                         </div>
                     @endif
                 </div>
+
+                @auth
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status">
+                            @foreach($statuses as $key => $value)
+                                @if ($key == old('status'))
+                                    <option value="{{ $key }}" selected>{{ $value }}</option>
+                                @else
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        @if ($errors->has('status'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('status') }}
+                            </div>
+                        @endif
+                    </div>
+                @endauth
 
                 <div class="form-group">
                     <div class="float-right">

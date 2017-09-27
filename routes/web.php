@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
 Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');
 Route::post('/colloquia', 'ColloquiaController@store')->name('colloquia.store');
+Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
+Route::patch('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
 
 /*
  * Authenticated routes.

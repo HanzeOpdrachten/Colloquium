@@ -41,8 +41,9 @@ class Status extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->subject('Je colloquium wordt beoordeeld')
+                    ->line('bla bla bla')
+                    ->action('Bekijk de status', route('colloquia.edit', $notifiable->id).'?token='.$notifiable->token)
                     ->line('Thank you for using our application!');
     }
 
