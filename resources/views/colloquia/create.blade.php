@@ -7,7 +7,7 @@
             <form method="post" action="{{ route('colloquia.store') }}">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="title">Titel</label>
+                    <label for="title">Onderwerp</label>
                     <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" value="{{ old('title') }}">
                     @if ($errors->has('title'))
                         <div class="invalid-feedback">
@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="training">Opleiding</label>
+                    <label for="training">Gewenste opleiding voor dit colloquium</label>
                     <select class="form-control {{ $errors->has('training') ? 'is-invalid' : '' }}" name="training_id" id="training" value="{{ old('training') }}">
                         @foreach($trainings as $training)
                             @if (old('training') == $training)
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="speaker">Spreker</label>
+                    <label for="speaker">Naam van de spreker</label>
                     <input type="text" class="form-control {{ $errors->has('speaker') ? 'is-invalid' : '' }}" name="speaker" id="speaker" value="{{ old('speaker') }}">
                     @if ($errors->has('speaker'))
                         <div class="invalid-feedback">
@@ -57,8 +57,8 @@
                 @endguest
 
                 <div class="form-group">
-                    <label for="location">Locatie</label>
-                    <input type="text" class="form-control {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location" id="location" value="{{ old('location') }}">
+                    <label for="location">Locatie van dit colloquium</label>
+                    <input type="text" class="form-control {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location" id="location" value="{{ old('location') }}" placeholder="Bijv.: ZP09/D220">
                     @if ($errors->has('location'))
                         <div class="invalid-feedback">
                             {{ $errors->first('location') }}
@@ -66,7 +66,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="description">Omschrijving</label>
+                    <label for="description">Korte omschrijving</label>
                     <textarea class="form-control" name="description" id="description" style="min-height:100px; max-height:200px;">{{ old('description') }}</textarea>
                     @if ($errors->has('description'))
                         <div class="invalid-feedback">
@@ -75,7 +75,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="language">Taal</label>
+                    <label for="language">Gesproken taal</label>
                     <input type="text" class="form-control {{ $errors->has('language') ? 'is-invalid' : '' }}" name="language" id="language" value="{{ old('language') }}">
                     @if ($errors->has('language'))
                         <div class="invalid-feedback">
@@ -84,22 +84,35 @@
                     @endif
                 </div>
                 <div class="form-group">
-                  <label for="start-date">Startdatum</label>
-                  <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="datetime-local" name="start_date" id="start-date" value="{{ old('start_date') }}">
-                  @if ($errors->has('start_date'))
-                      <div class="invalid-feedback">
-                          {{ $errors->first('start_date') }}
-                      </div>
-                  @endif
-                </div>
-                <div class="form-group">
-                    <label for="end-date">Einddatum</label>
-                    <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="datetime-local" name="end_date" id="end-date" value="{{ old('end_date') }}">
-                    @if ($errors->has('end_date'))
+                    <label for="date">Datum</label>
+                    <input class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date" name="date" id="date" value="{{ old('date') }}">
+                    @if ($errors->has('date'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('end_date') }}
+                            {{ $errors->first('date') }}
                         </div>
                     @endif
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="start_time">Van</label>
+                            <input class="form-control {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="time" name="start_time" value="{{ old('start_time') }}">
+                            @if ($errors->has('start_time'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('start_time') }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end_time">Tot</label>
+                            <input class="form-control {{ $errors->has('end_time') ? 'is-invalid' : '' }}" type="time" name="end_time" id="end-time" value="{{ old('end_time') }}">
+                            @if ($errors->has('end_time'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('end_time') }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 @auth
