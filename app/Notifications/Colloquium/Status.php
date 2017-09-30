@@ -42,6 +42,7 @@ class Status extends Notification
     {
         return (new MailMessage)
                     ->subject('Je colloquium wordt beoordeeld')
+                    ->greeting('Hallo :name', ['name' => $notifiable->speaker])
                     ->line('bla bla bla')
                     ->action('Bekijk de status', route('colloquia.edit', $notifiable->id).'?token='.$notifiable->token)
                     ->line('Thank you for using our application!');

@@ -25,22 +25,18 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'title' => 'required|max:80',
-            'training_id' => 'required|exists:trainings,id',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'speaker' => 'required|max:80',
-            'location' => 'required|max:80',
-            'description' => 'required|max:140',
-            'status' => 'in:1,2,3,4',
-            'language' => 'required|max:80',
+        return [
+            'title'        => 'required|max:80',
+            'training'     => 'required|exists:trainings,id',
+            'speaker'      => 'required|max:80',
+            'email'        => 'required_without:status|email|max:255',
+            'location'     => 'required|max:80',
+            'description'  => 'required|max:140',
+            'language'     => 'required|max:80',
+            'date'         => 'required|date',
+            'start_time'   => 'required|date_format:H:i',
+            'end_time'     => 'required|date_format:H:i|after:start_time',
+            'status'       => 'in:1,2,3,4',
         ];
-
-        if (Auth::guest()) {
-            $rules['email'] = 'required|max:255|email';
-        }
-
-        return $rules;
     }
 }

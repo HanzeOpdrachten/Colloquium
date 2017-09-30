@@ -7,6 +7,7 @@ use App\Colloquium;
 use App\Notifications\Colloquium\Status;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
+use Carbon\Carbon;
 
 class ColloquiaController extends Controller
 {
@@ -49,7 +50,24 @@ class ColloquiaController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $colloquium = Colloquium::create($request->all());
+        $attributes = $request->all();
+        $attributes['training_id'] = $request->get('training');
+
+        $startDate = $request->get('date');
+        $startTime = $request->get('start_time');
+        $endTime = $request->get('end_time');
+        $startDateTime = date('Y-m-d H:i:s', strtotime("$startDate $startTime"));
+        $endDateTime = date('Y-m-d H:i:s', strtotime("$startDate $endTime"));
+
+        $attributes['start_date'] = $startDateTime;
+        $attributes['end_date'] = $endDateTime;
+
+        unset($attributes['start_time']);
+        unset($attributes['end_time']);
+        unset($attributes['training']);
+        unset($attributes['date']);
+
+        $colloquium = Colloquium::create($attributes);
 
         // Resync the data from the database because a few attributes are default in de database
         // but not in Eloquent. So Eloquent will not retrieve them right away.

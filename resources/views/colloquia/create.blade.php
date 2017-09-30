@@ -18,7 +18,7 @@
 
                 <div class="form-group">
                     <label for="training">Gewenste opleiding voor dit colloquium</label>
-                    <select class="form-control {{ $errors->has('training') ? 'is-invalid' : '' }}" name="training_id" id="training" value="{{ old('training') }}">
+                    <select class="form-control {{ $errors->has('training') ? 'is-invalid' : '' }}" name="training" id="training">
                         @foreach($trainings as $training)
                             @if (old('training') == $training)
                                 <option value="{{ $training->id }}" selected>{{ $training->name }}</option>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Korte omschrijving</label>
-                    <textarea class="form-control" name="description" id="description" style="min-height:100px; max-height:200px;">{{ old('description') }}</textarea>
+                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" style="min-height:100px; max-height:200px;">{{ old('description') }}</textarea>
                     @if ($errors->has('description'))
                         <div class="invalid-feedback">
                             {{ $errors->first('description') }}
@@ -118,7 +118,7 @@
                 @auth
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status">
+                        <select id="status" class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status">
                             @foreach($statuses as $key => $value)
                                 @if ($key == old('status'))
                                     <option value="{{ $key }}" selected>{{ $value }}</option>
@@ -143,4 +143,5 @@
             </form>
         </div>
     </div>
+    @include('layouts.footer')
 @endsection
