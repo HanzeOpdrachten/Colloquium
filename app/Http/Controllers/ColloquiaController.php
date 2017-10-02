@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Auth;
 class ColloquiaController extends Controller
 {
     /**
+     * Display a specific colloquium.
+     *
+     * @param Colloquium $colloquium
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Colloquium $colloquium)
+    {
+      return view('colloquia.show', compact('colloquium'));
+    }
+
+    /**
      * Display all colloquia on the television.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -112,7 +123,8 @@ class ColloquiaController extends Controller
         return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
     }
 
-    public function accept(Colloquium $colloquium, UpdateRequest $request) {
+    public function accept(Colloquium $colloquium, UpdateRequest $request)
+    {
       $colloquium->status = Colloquium::ACCEPTED;
       $colloquium->save();
 

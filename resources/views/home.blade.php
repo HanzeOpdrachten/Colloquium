@@ -30,7 +30,7 @@
                 <td>
                   <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
                 </td>
-                <td>{{ $colloquium->title }}</td>
+                <td><a href="{{ route('colloquia.show', $colloquium->id) }}">{{ $colloquium->title }}</a></td>
                 <td>{{ $colloquium->speaker }}</td>
                 <td>{{ $colloquium->location }}</td>
                 <td>{{ $colloquium->description }}</td>
