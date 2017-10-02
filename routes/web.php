@@ -38,4 +38,6 @@ Route::middleware('auth')->group(function() {
     Route::patch('/trainings/{training}/unsubscribe', 'TrainingsController@unsubscribe')->name('trainings.unsubscribe');
     Route::get('/trainings/{training}/edit', 'TrainingsController@edit')->name('trainings.edit');
     Route::patch('/trainings/{training}', 'TrainingsController@update')->name('trainings.update');
+
+    Route::get('/colloquia/accept/{colloquium}', 'ColloquiaController@accept')->name('colloquia.accept');
 });

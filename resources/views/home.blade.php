@@ -1,23 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+<div class="starter-template">
+  <h1>Dashboard</h1>
+  <p>Welkom terug, {{ Auth::user()->name }}.</p>
+  @include('layouts.alerts')
+  @auth
+    @if(Auth::user()->isAdmin() || Auth::user()->isPlanner())
+      @if (!$colloquia->isEmpty())
+        <div class="col-xs-12 col-sm-12">
+          <p>Hieronder is een overzicht te vinden met daarin colloquia die wachten op goedkeuring.</p>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    Welkom terug, {{ Auth::user()->name }}
-                </div>
-            </div>
+          <table class="table table-responsive">
+            <thead class="thead-inverse">
+              <tr>
+                <th>Training</th>
+                <th>Title</th>
+                <th>Speaker</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Language</th>
+                <th>Acties</th>
+              </tr>
+            </thead>
+            <tbody>
+            @foreach($colloquia as $colloquium)
+              <tr>
+                <td>
+                  <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
+                </td>
+                <td>{{ $colloquium->title }}</td>
+                <td>{{ $colloquium->speaker }}</td>
+                <td>{{ $colloquium->location }}</td>
+                <td>{{ $colloquium->description }}</td>
+                <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
+                <td>{{ $colloquium->language }}</td>
+                <td><a href="{{ route('colloquia.accept', $colloquium->id) }}" class="btn btn-primary">Accepteren</a></td>
+              </tr>
+            @endforeach
+            </tbody>
+          </table>
         </div>
-    </div>
+      @else
+        <p>Er zijn op dit moment geen colloquia die goedgekeurd kunnen worden.</p>
+      @endif
+    @endif
+  @endauth
 </div>
-@endsection

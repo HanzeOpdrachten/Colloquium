@@ -111,4 +111,13 @@ class ColloquiaController extends Controller
 
         return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
     }
+
+    public function accept(Colloquium $colloquium, UpdateRequest $request) {
+      $colloquium->status = Colloquium::ACCEPTED;
+      $colloquium->save();
+
+      return redirect()
+          ->route('home')
+          ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
+    }
 }
