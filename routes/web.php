@@ -12,11 +12,7 @@
 */
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
+Route::get('/', 'ColloquiaController@index')->name('colloquia.index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
 Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');
@@ -37,11 +33,9 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/trainings', 'TrainingsController@index')->name('trainings.index');
     Route::get('/trainings/create', 'TrainingsController@create')->name('trainings.create');
-//    Route::get('/trainings/{training}', 'TrainingsController@show')->name('trainings.show');
     Route::post('/trainings', 'TrainingsController@store')->name('trainings.store');
     Route::patch('/trainings/{training}/subscribe', 'TrainingsController@subscribe')->name('trainings.subscribe');
     Route::patch('/trainings/{training}/unsubscribe', 'TrainingsController@unsubscribe')->name('trainings.unsubscribe');
     Route::get('/trainings/{training}/edit', 'TrainingsController@edit')->name('trainings.edit');
     Route::patch('/trainings/{training}', 'TrainingsController@update')->name('trainings.update');
-//    Route::delete('/trainings/{training}', 'TrainingsController@destroy')->name('trainings.destroy');
 });
