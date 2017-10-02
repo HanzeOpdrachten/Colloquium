@@ -8,6 +8,7 @@ use App\Notifications\Colloquium\Status;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ColloquiaController extends Controller
 {
