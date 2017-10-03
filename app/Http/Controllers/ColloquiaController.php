@@ -140,6 +140,6 @@ class ColloquiaController extends Controller
 
       return redirect()
           ->route('home')
-          ->with('warning', 'Colloquium is succesvol afgekeurd. Het colloquium is nu niet zichtbaar in het overzicht.');
+          ->with('success', 'Colloquium is succesvol geweigerd. Het colloquium is nu niet zichtbaar in het overzicht.');
     }
 }

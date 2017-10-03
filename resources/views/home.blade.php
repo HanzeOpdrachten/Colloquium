@@ -36,14 +36,17 @@
                 <td>{{ $colloquium->description }}</td>
                 <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
                 <td>{{ $colloquium->language }}</td>
-                <td><a href="{{ route('colloquia.accept', $colloquium->id) }}" class="btn btn-primary">Accepteren</a></td>
+                <td>
+                  <a href="{{ route('colloquia.accept', $colloquium->id) }}" class="btn btn-primary">Accepteren</a>
+                  <a href="{{ route('colloquia.decline', $colloquium->id) }}" class="btn btn-danger">Weigeren</a>
+                </td>
               </tr>
             @endforeach
             </tbody>
           </table>
         </div>
       @else
-        <p>Er zijn op dit moment geen colloquia die goedgekeurd kunnen worden.</p>
+        <p>Er zijn op dit moment geen colloquia die goedgekeurd/afgekeurd kunnen worden.</p>
       @endif
     @endif
   @endauth
