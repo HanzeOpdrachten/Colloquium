@@ -15,15 +15,21 @@
                             </div>
                         @endif
                     </div>
+
                     <div class="form-group">
-                        <label for="color">Kleur</label>
-                        <input type="color" class="form-control {{ $errors->has('color') ? 'is-invalid': '' }}" name="color" id="color" value="{{ old('color') }}">
+                      <label for="color">Kleur</label>
+
+                      <div class="input-group colorpicker colorpicker-component">
+                        <input type="text" value="#000000" name="color" id="color" class="form-control" />
+                        <span class="input-group-addon"><i></i></span>
                         @if ($errors->has('color'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('color') }}
                             </div>
                         @endif
+                      </div>
                     </div>
+
                     <div class="form-group">
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary">Opslaan</button>

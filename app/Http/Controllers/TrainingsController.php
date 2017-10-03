@@ -47,7 +47,7 @@ class TrainingsController extends Controller
         $training = Training::create($request->all());
 
         return redirect()
-            ->route('trainings.show', $training->id)
+            ->route('trainings.index')
             ->with('success', 'De opleiding is toegevoegd.');
     }
 
