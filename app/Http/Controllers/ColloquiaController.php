@@ -123,6 +123,13 @@ class ColloquiaController extends Controller
         return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
     }
 
+    /**
+     * Accept a colloquium.
+     *
+     * @param Colloquium $colloquium
+     * @param UpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function accept(Colloquium $colloquium, UpdateRequest $request)
     {
       $colloquium->status = Colloquium::ACCEPTED;
@@ -133,6 +140,13 @@ class ColloquiaController extends Controller
           ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
     }
 
+    /**
+     * Decline a colloquium.
+     *
+     * @param Colloquium $colloquium
+     * @param UpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function decline(Colloquium $colloquium, UpdateRequest $request)
     {
       $colloquium->status = Colloquium::DECLINED;
