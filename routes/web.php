@@ -41,4 +41,5 @@ Route::middleware('auth')->group(function() {
     Route::patch('/trainings/{training}', 'TrainingsController@update')->name('trainings.update');
 
     Route::get('/colloquia/accept/{colloquium}', 'ColloquiaController@accept')->name('colloquia.accept');
+    Route::get('/colloquia/decline/{colloquium}', 'ColloquiaController@decline')->name('colloquia.decline');
 });

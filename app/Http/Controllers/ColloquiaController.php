@@ -132,4 +132,14 @@ class ColloquiaController extends Controller
           ->route('home')
           ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
     }
+
+    public function decline(Colloquium $colloquium, UpdateRequest $request)
+    {
+      $colloquium->status = Colloquium::DECLINED;
+      $colloquium->save();
+
+      return redirect()
+          ->route('home')
+          ->with('warning', 'Colloquium is succesvol afgekeurd. Het colloquium is nu niet zichtbaar in het overzicht.');
+    }
 }
