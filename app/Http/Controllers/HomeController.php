@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\ColloquiaController;
+use App\Colloquium;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $colloquia = Colloquium::oldest('start_date')
+          ->where('status', '=', Colloquium::AWAITING)
+          ->get();
+
+        return view('home', compact('colloquia'));
     }
 }

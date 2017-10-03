@@ -10,6 +10,9 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('home') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('colloquia.create') }}">Colloquia toevoegen</a>
             </li>
             @guest
@@ -28,9 +31,6 @@
                         <a class="nav-link" href="{{ route('users.index') }}">Gebruikers</a>
                     </li>
                 @endcan
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">dashboard</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit();">Uitloggen</a>
                 </li>

@@ -17,6 +17,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
 Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');
 Route::post('/colloquia', 'ColloquiaController@store')->name('colloquia.store');
+Route::get('/colloquia/{colloquium}', 'ColloquiaController@show')->name('colloquia.show');
 Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
 Route::patch('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
 
@@ -38,4 +39,6 @@ Route::middleware('auth')->group(function() {
     Route::patch('/trainings/{training}/unsubscribe', 'TrainingsController@unsubscribe')->name('trainings.unsubscribe');
     Route::get('/trainings/{training}/edit', 'TrainingsController@edit')->name('trainings.edit');
     Route::patch('/trainings/{training}', 'TrainingsController@update')->name('trainings.update');
+
+    Route::get('/colloquia/accept/{colloquium}', 'ColloquiaController@accept')->name('colloquia.accept');
 });
