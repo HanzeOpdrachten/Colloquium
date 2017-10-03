@@ -42,3 +42,9 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+  <script type="text/javascript">
+    $('.colorpicker').colorpicker();
+  </script>
+@endpush
