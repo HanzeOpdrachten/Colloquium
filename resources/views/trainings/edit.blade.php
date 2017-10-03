@@ -16,15 +16,22 @@
                             </div>
                         @endif
                     </div>
+
                     <div class="form-group">
-                        <label for="color">Kleur</label>
-                        <input type="color" class="form-control {{ $errors->has('color') ? 'is-invalid': '' }}" name="color" id="color" value="{{ $training->name }}">
-                        @if ($errors->has('color'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('color') }}
-                            </div>
-                        @endif
+                      <label for="color">Kleur</label>
+
+                      <div class="input-group colorpicker colorpicker-component">
+                        <input type="text" value="#{{ $training->color }}" name="color" id="color" class="form-control  {{ $errors->has('color') ? 'is-invalid': '' }}" />
+                        <span class="input-group-addon"><i></i></span>
+                      </div>
+
+                      @if ($errors->has('color'))
+                          <div class="invalid-feedback">
+                              {{ $errors->first('color') }}
+                          </div>
+                      @endif
                     </div>
+
                     <div class="form-group">
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary">Bijwerken</button>
@@ -35,3 +42,9 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+  <script type="text/javascript">
+    $('.colorpicker').colorpicker();
+  </script>
+@endpush

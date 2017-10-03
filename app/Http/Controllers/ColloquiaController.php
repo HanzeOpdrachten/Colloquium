@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Auth;
 class ColloquiaController extends Controller
 {
     /**
+     * Display a specific colloquium.
+     *
+     * @param Colloquium $colloquium
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Colloquium $colloquium)
+    {
+      return view('colloquia.show', compact('colloquium'));
+    }
+
+    /**
      * Display all colloquia on the television.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -110,5 +121,25 @@ class ColloquiaController extends Controller
         ];
 
         return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
+    }
+
+    public function accept(Colloquium $colloquium, UpdateRequest $request)
+    {
+      $colloquium->status = Colloquium::ACCEPTED;
+      $colloquium->save();
+
+      return redirect()
+          ->route('home')
+          ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
+    }
+
+    public function decline(Colloquium $colloquium, UpdateRequest $request)
+    {
+      $colloquium->status = Colloquium::DECLINED;
+      $colloquium->save();
+
+      return redirect()
+          ->route('home')
+          ->with('success', 'Colloquium is succesvol geweigerd. Het colloquium is nu niet zichtbaar in het overzicht.');
     }
 }
