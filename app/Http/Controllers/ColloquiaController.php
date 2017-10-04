@@ -108,11 +108,12 @@ class ColloquiaController extends Controller
      * Display the edit form for the resource.
      *
      * @param Colloquium $colloquium
-     * @param UpdateRequest $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Colloquium $colloquium, UpdateRequest $request)
+    public function edit(Colloquium $colloquium)
     {
+        $this->authorize('update', Colloquium::class);
+
         $trainings = Training::all();
         $statuses = [
             Colloquium::AWAITING => 'Wachten op goedkeuring',
@@ -121,6 +122,28 @@ class ColloquiaController extends Controller
         ];
 
         return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
+    }
+
+    /**
+     * Display the edit form for the speaker.
+     *
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function manage($token)
+    {
+        // Find colloquium by token.
+        $colloquium = Colloquium::where('token', '=', $token)->first();
+
+        // Requested colloquium doesn't exist.
+        // Show 404 page.
+        if ($colloquium === null) {
+            return abort(404);
+        }
+
+        $trainings = Training::all();
+
+        return view('colloquia.edit', compact('colloquium', 'trainings'));
     }
 
     /**
