@@ -19,7 +19,7 @@ Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.c
 Route::post('/colloquia', 'ColloquiaController@store')->name('colloquia.store');
 Route::get('/colloquia/{colloquium}', 'ColloquiaController@show')->name('colloquia.show');
 Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
-Route::patch('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
+Route::post('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
 
 /*
  * Authenticated routes.
