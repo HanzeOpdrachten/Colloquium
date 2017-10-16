@@ -1,0 +1,48 @@
+.hamburger
+  display: inline-block
+  height: 10px
+
+  &__wrapper
+    position: absolute
+    top: 25px
+    left: 30px
+    padding: 0 20px 0 0
+    cursor: pointer
+    z-index: 2
+
+    @include media($l)
+      right: 80px
+      display: none
+
+  &__text
+    margin-right: 10px
+
+  &__slice
+    display: inline-block
+    position: absolute
+    height: 2px
+    width: 30px
+    background: $white
+    border-radius: none
+    transition: all .2s ease-in-out
+
+    &--top
+      top: 0px
+
+      &--active
+        opacity: 0
+
+    &--middle
+      top: 10px
+
+      &--active
+        transform: rotate(45deg)
+
+        &:nth-of-type(2)
+          transform: rotate(-45deg)
+
+    &--bottom
+      top: 20px
+
+      &--active
+        opacity: 0

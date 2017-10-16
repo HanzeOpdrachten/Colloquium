@@ -1,0 +1,23 @@
+.navigation
+  height: $nav-height
+  max-height: $nav-height
+  background-color: $nav-background
+  width: 100%
+
+  z-index: 10
+
+  &__logo
+    display: flex
+    justify-content: center
+
+    +media($l)
+      display: inline-block
+
+    img
+      width: auto
+      height: $nav-height
+
+  &__color-bar
+    height: 5px
+    width: 100%
+    background: linear-gradient(to right, $primary 53%, $secondary 53%, $secondary 80%, $black 80%, $black 100%)

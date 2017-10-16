@@ -1,0 +1,139 @@
+.column
+
+  &--center
+    text-align: center
+
+  &--visible
+    border-radius: 5px
+    background-color: $grey-light
+    padding: 20px
+
+  &--mobile-top
+    order: 1
+
+    +media($xl)
+      order: 2
+
+  &--mobile-bottom
+    order: 2
+
+    +media($xl)
+      order: 1
+
+  &--offset-one-eight
+    +media($l)
+      +shift(1.5)
+
+  &--one-sixth
+    +media($s-contained)
+      +span-columns(2)
+      +omega(2n)
+
+    +media($m-contained)
+      +span-columns(4)
+      +omega(3n)
+
+    +media($l)
+      +span-columns(2)
+      +omega(6n)
+
+  &--one-fifth
+    +media($s-contained)
+      +span-columns(2)
+      +omega(2n)
+
+    +media($m-contained)
+      +span-columns(6)
+      +omega(2n)
+
+    +media($l)
+      +span-columns(2.4)
+      +omega(5n)
+
+  &--offset-one-quarter
+    +media($l)
+      +shift(3)
+
+  &--one-quarter
+    +media($s-contained)
+      +span-columns(4)
+
+    +media($m-contained)
+      +span-columns(12)
+      +omega(1)
+
+    +media($l-contained)
+      +span-columns(12)
+      +omega(1)
+
+    +media($xl)
+      +span-columns(3)
+
+  &--one-third
+    +media($m)
+      +span-columns(4)
+      +omega(3n)
+
+  &--two-sixth
+    +media($s-contained)
+      +span-columns(12)
+      +omega(1n)
+
+    +media($m-contained)
+      +span-columns(6)
+      +omega(2n)
+
+    +media($l)
+      +span-columns(4)
+      +omega(3n)
+
+  &--half
+    +media($m)
+      +span-columns(6)
+      +omega(2n)
+
+  &--two-third
+    +media($m)
+      +span-columns(8)
+
+  &--five-sixth
+    +media($m-contained)
+      +span-columns(8)
+      +omega(3n)
+
+    +media($l)
+      +span-columns(10)
+      +omega(6n)
+
+  &--three-quarter
+    +media($m)
+      +span-columns(12)
+
+    +media($xl)
+      +span-columns(9)
+
+  &--whole
+    +media($m)
+      +span-columns(12)
+
+    & + .column--whole
+      margin-top: 20px
+
+  &--automatic-row
+    +media($m-contained)
+      +span-columns(4)
+      +omega(3n)
+
+      background: secondary
+
+    +media($l-contained)
+      +span-columns(3)
+      +omega(4n)
+
+      background: secondary
+
+    +media($xl)
+      +span-columns(2)
+      +omega(6n)
+
+      background: secondary

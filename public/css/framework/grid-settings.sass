@@ -1,0 +1,17 @@
+// These variables are set in variables.sass
+
+$column: $column-width
+$gutter: $gutter-width
+$grid-columns: $columns-amount-s
+$max-width: $container-width
+
+$visual-grid: false
+$visual-grid-color: blue
+$visual-grid-index: front
+
+$s-contained: new-breakpoint(max-width ($m-breakpoint - 1) $columns-amount-s)
+$m: new-breakpoint(min-width $m-breakpoint $columns-amount-m)
+$m-contained: new-breakpoint(min-width $m-breakpoint max-width ($l-breakpoint - 1) $columns-amount-m)
+$l: new-breakpoint(min-width $l-breakpoint $columns-amount-l)
+$l-contained: new-breakpoint(min-width $l-breakpoint max-width ($xl-breakpoint - 1) $columns-amount-m)
+$xl: new-breakpoint(min-width $xl-breakpoint $columns-amount-xl)

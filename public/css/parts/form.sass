@@ -1,0 +1,44 @@
+.form
+
+  &__label
+    display: block
+
+    & + .form__label
+      margin-top: 20px
+
+  &__input
+    width: 100%
+    padding: $form-padding
+    border: none
+    border-radius: $form-border-radius
+    margin: 0 0 10px 0
+    font-size: $font-size
+    background-color: $form-input-background
+    font-family: $font-family
+    border-left: 4px solid $grey-light
+    transition: .5s ease-in border-left
+
+    &:focus
+      outline: none
+
+    &--half
+      float: left
+      width: 49%
+
+  &__textarea
+    @extend .form__input
+    resize: none
+    border-left: 4px solid $grey-light
+    transition: .5s ease-in border-left
+
+.input
+  padding: $form-padding
+  border-radius: $form-border-radius
+  border: none
+  font-size: 13px
+  font-family: $font-family
+  color: $grey-lighter
+  width: 100%
+
+  &:focus
+    outline: none

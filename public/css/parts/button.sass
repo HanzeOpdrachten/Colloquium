@@ -1,0 +1,65 @@
+.button
+  padding: $button-padding
+  margin-top: $margin-text
+  display: inline-block
+  text-align: center
+  text-decoration: none
+  text-transform: uppercase
+  font-weight: 600
+  font-family: $font-family-button
+  font-size: 13px
+  border-radius: $button-border-radius
+  +create-button
+
+  &:hover
+    background-color: darken($black, 5%)
+    border-color: darken($black, 5%)
+    color: $white
+
+  // All the colosecondary buttons
+  //
+  // +create-button creates your button styles automatic
+  // +create-button($background-color, $color, $border-width, $border-color)
+  //
+  // Defaults:
+  // $background-color: $action-color
+  // $color:            $white
+  // $border-width:     1px
+  // $border-color:     $background-color
+
+  &--black
+    +create-button($black)
+
+  &--white
+    +create-button($white, $text-color, $border-color: $grey-lighter)
+
+  &--primary
+    +create-button($primary)
+
+  &--secondary
+    +create-button($secondary)
+
+  // Special button settings
+  &--block
+    display: block
+    width: 100%
+
+  &--no-margin
+    margin: 0
+
+  // Positioned Buttons
+  // Parent needs to have a "relative" position
+  &--bottom
+    margin-top: 0
+    position: absolute
+    bottom: 30px
+
+  &--right
+    margin-top: 0
+    position: absolute
+    bottom: 23px
+    right: 20px
+
+  &--right-float
+    float: right
+    margin-top: 0

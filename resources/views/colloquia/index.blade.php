@@ -1,47 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="starter-template">
-  <h1>Colloquia</h1>
 
-  <div class="col-xs-12 col-sm-12">
-
-  @auth
-    @if(Auth::user()->isAdmin() || Auth::user()->isPlanner())
-      @include('layouts.alerts')
-      <a href="{{ route('colloquia.create') }}" class="btn btn-primary float-right">Colloquium toevoegen</a>
-    @endif
-  @endauth
-
-  <table class="table table-responsive">
-    <thead class="thead-inverse">
-      <tr>
-        <th>Training</th>
-        <th>Title</th>
-        <th>Speaker</th>
-        <th>Location</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Language</th>
-      </tr>
-    </thead>
-    <tbody>
-    @foreach($colloquia as $colloquium)
-      <tr>
-        <td>
-          <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
-        </td>
-        <td><a href="{{ route('colloquia.show', $colloquium->id) }}">{{ $colloquium->title }}</a></td>
-        <td>{{ $colloquium->speaker }}</td>
-        <td>{{ $colloquium->location }}</td>
-        <td>{{ $colloquium->description }}</td>
-        <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
-        <td>{{ $colloquium->language }}</td>
-      </tr>
-    @endforeach
-    </tbody>
-  </table>
+  <div class="column column--whole">
+    @auth
+      @if(Auth::user()->isAdmin() || Auth::user()->isPlanner())
+        @include('layouts.alerts')
+        <a href="{{ route('colloquia.create') }}" class="button button--secondary">Colloquium toevoegen</a>
+      @endif
+    @endauth
   </div>
-</div>
+
+  <div class="column column--whole">
+    @foreach($colloquia as $colloquium)
+      <div class="lecture">
+        <div class="lecture__date-time">
+          <span class="lecture__day">{{ date('j', strtotime($colloquium->start_date)) }}</span>
+          <span class="lecture__month">{{ date('M', strtotime($colloquium->start_date)) }}</span>
+        </div>
+        <div class="lecture__content">
+          <h2 class="lecture__title">{{ $colloquium->title }}</h2>
+          <p class="lecture__description">{{ $colloquium->description }}</p>
+          <span class="lecture__course">{{ $colloquium->training->name }}</span>
+        </div>
+        <span class="lecture__language">{{ $colloquium->language }}</span>
+        <span class="lecture__time">{{ date('G:i', strtotime($colloquium->start_date)) }} - {{ date('G:i', strtotime($colloquium->end_date)) }}</span>
+        <div class="lecture__location">
+          {{ $colloquium->location }}
+        </div>
+      </div>
+    @endforeach
+  </div>
 
 @endsection
