@@ -6,6 +6,7 @@ use App\Http\Requests\Training\StoreRequest;
 use App\Http\Requests\Training\UpdateRequest;
 use App\Training;
 use App\User;
+use App\Colloquium;
 use Illuminate\Http\Request;
 
 class TrainingsController extends Controller
@@ -93,12 +94,21 @@ class TrainingsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Training $training
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Training $training)
     {
-        //
+        $this->authorize('delete', $training);
+
+        $colloquia = Colloquium::where('training_id', $training->id)
+            ->update(['training_id' => 1]);
+
+        $training->delete();
+
+        return redirect()
+            ->route('trainings.index')
+            ->with('success', 'Opleiding verwijdert.');
     }
 
     /**
