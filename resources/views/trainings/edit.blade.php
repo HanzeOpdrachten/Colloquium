@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    @include('components.breadcrumbs', [
+        'crumbs' => [
+            'Home' => route('home'),
+            'Opleidingen' => route('trainings.index'),
+            'Opleiding ' . $training->name => '#'
+        ]
+    ])
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
