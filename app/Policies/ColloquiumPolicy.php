@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Colloquium;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -29,6 +30,13 @@ class ColloquiumPolicy
     public function create(User $user)
     {
         return true;
+    }
+
+    public function accept(User $user, Colloquium $colloquium)
+    {
+        if (!$user->isAdmin()) {
+            return false;
+        } elseif ($colloquium->)
     }
 
     /**

@@ -11,7 +11,6 @@ class User extends Authenticatable
 
     const ADMIN = 1;
     const PLANNER = 2;
-    const STUDENT = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -49,16 +48,6 @@ class User extends Authenticatable
     public function isPlanner()
     {
         return ($this->attributes['role'] == self::PLANNER);
-    }
-
-    /**
-     * Check if the user is a student.
-     *
-     * @return bool
-     */
-    public function isStudent()
-    {
-        return ($this->attributes['role'] == self::STUDENT);
     }
 
     /**
