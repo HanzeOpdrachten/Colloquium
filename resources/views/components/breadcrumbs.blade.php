@@ -5,7 +5,7 @@
             @if ($crumbUrl == '#')
                 <li class="last"><span>{!! $crumbName !!}</span></li>
             @else
-                <li typeof="v:Breadcrumb"><a rel="v:url" property="v:title" target="_blank" href="{!! $crumbUrl !!}">{!! $crumbName !!}</a></li>
+                <li typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="{!! $crumbUrl !!}">{!! $crumbName !!}</a></li>
             @endif
         @endforeach
     </ul>

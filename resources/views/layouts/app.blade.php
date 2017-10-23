@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="/css/theme.min.css">
   </head>
   <body>
-    @include('layouts.navbar')
+    @if(!isset($noHeader))
+      @include('layouts.navbar')
+    @endif
 
     @yield('breadcrumbs')
 

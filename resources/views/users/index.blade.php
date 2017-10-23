@@ -41,9 +41,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Gebruiker verwijderen</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                </div>
+                <div class="modal-body">
+                    Weet u zeker dat u deze gebruiker wilt verwijderen?
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="">
@@ -51,7 +51,7 @@
                         {{ method_field('DELETE') }}
                         <button type="submit" class="button button--primary">Gebruiker verwijderen</button>
                     </form>
-                    <button type="button" class="button button--secondary" data-dismiss="modal">Sluiten</button>
+                    <button type="button" class="button button--secondary" data-dismiss="modal">Annuleren</button>
                 </div>
             </div>
         </div>
