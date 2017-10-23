@@ -1,17 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', ['noHeader' => true])
 
 @section('content')
-
-  <div class="column column--whole">
-    @auth
-      @if(Auth::user()->isAdmin() || Auth::user()->isPlanner())
-        @include('layouts.alerts')
-        <a href="{{ route('colloquia.create') }}" class="button button--secondary button--right-float">Colloquium toevoegen</a>
-      @endif
-    @endauth
-  </div>
-
-  <div class="column column--whole">
+  <div class="column column--two-third">
     @foreach($colloquia as $colloquium)
       <div class="lecture">
         <div class="lecture__date-time">
@@ -31,5 +21,10 @@
       </div>
     @endforeach
   </div>
+
+  <div class="column column--one-third column--last">
+        <h1>TV Sub content QR scanner oid?</h1>
+  </div>
+
 
 @endsection

@@ -13,6 +13,8 @@
 Auth::routes();
 
 Route::get('/', 'ColloquiaController@index')->name('colloquia.index');
+Route::get('/tv', 'ColloquiaController@tv')->name('tv');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
 Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');

@@ -22,7 +22,7 @@ class ColloquiaController extends Controller
     }
 
     /**
-     * Display all colloquia on the television.
+     * Display all colloquia for the desktop.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -33,6 +33,20 @@ class ColloquiaController extends Controller
             ->get();
 
         return view('colloquia.index', compact('colloquia'));
+    }
+
+    /**
+     * Display all colloquia for the television.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function tv()
+    {
+        $colloquia = Colloquium::oldest('start_date')
+            ->where('status', '=', Colloquium::ACCEPTED)
+            ->get();
+
+        return view('colloquia.tv', compact('colloquia'));
     }
 
     /**

@@ -1,57 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="column column--whole">
         @include('layouts.alerts')
-        <div class="row">
-            <div class="col-md-12">
-                <a href="{{ route('users.create') }}" class="btn btn-primary float-right">Gebruikers toevoegen</a>
-            </div>
-        </div>
-        <table class="table table-responsive mt-5">
-            <thead>
-                <tr>
-                    <th>Naam</th>
-                    <th>E-mailadres</th>
-                    <th>Rol</th>
-                    <th>Opties</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($users as $user)
+
+        <a href="{{ route('users.create') }}" class="button button--primary button--right-float">Gebruiker toevoegen</a>
+    </div>
+
+    <div class="column column--whole">
+        <div class="table">
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        @if ($user->isAdmin())
-                            <td>Administrator</td>
-                        @elseif ($user->isPlanner())
-                            <td>Planner</td>
-                        @endif
-                        <td>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Bewerken</a>
-                            <a data-href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger {{ Auth::user()->id == $user->id ? 'disabled' : ''}}" data-toggle="modal" data-target="#delete">Verwijderen</a>
-                        </td>
+                        <th>Naam</th>
+                        <th>E-mailadres</th>
+                        <th>Rol</th>
+                        <th>Opties</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($users as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            @if ($user->isAdmin())
+                                <td>Administrator</td>
+                            @elseif ($user->isPlanner())
+                                <td>Planner</td>
+                            @endif
+                            <td>
+                                <a href="{{ route('users.edit', $user->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
+                                <a data-href="{{ route('users.destroy', $user->id) }}" class="button button--danger button--small button--no-margin {{ Auth::user()->id == $user->id ? 'button--disabled' : ''}}" data-toggle="modal" data-target="#delete">Verwijderen</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     <div id="delete" class="modal fade">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Gebruiker verwijderen</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                </div>
+                <div class="modal-body">
+                    Weet u zeker dat u deze gebruiker wilt verwijderen?
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button type="submit" class="btn btn-primary">Gebruiker verwijderen</button>
+                        <button type="submit" class="button button--primary">Gebruiker verwijderen</button>
                     </form>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                    <button type="button" class="button button--secondary" data-dismiss="modal">Annuleren</button>
                 </div>
             </div>
         </div>

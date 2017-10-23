@@ -112,6 +112,9 @@ blockquote {
       .row--padding {
         padding: 30px 80px 0; } }
 
+.column--last {
+  margin-right: 0 !important; }
+
 .column--center {
   text-align: center; }
 
@@ -505,7 +508,7 @@ blockquote {
         padding-bottom: 25px; } }
     @media screen and (min-width: 1024px) {
       .menu__item {
-        padding: 25px 0 0 30px; } }
+        padding: 25px 30px 0 0; } }
     .menu__item:hover .menu__link {
       color: #373E48; }
     @media screen and (min-width: 1024px) {
@@ -514,7 +517,7 @@ blockquote {
         .menu__item:first-of-type {
           padding-left: 25px; }
         .menu__item + .menu__item {
-          padding-left: 20px; } }
+          padding-right: 20px; } }
   .menu__link {
     color: #FFFFFF;
     text-decoration: none;
@@ -617,10 +620,12 @@ blockquote {
   background-color: #FFFFFF;
   height: 140px;
   width: 100%;
-  position: relative; }
-  .lecture + .lecture {
-    margin-top: 20px; }
+  position: relative;
+  margin-bottom: 20px; }
   .lecture__date-time {
+    position: absolute;
+    top: 0;
+    left: 0;
     float: left;
     background-color: #6e91a3;
     color: #FFFFFF;
@@ -652,6 +657,7 @@ blockquote {
     font-weight: 600;
     font-size: 20px; }
   .lecture__content {
+    margin-left: 150px;
     display: inline-block;
     float: left;
     height: 100%;
@@ -706,6 +712,42 @@ blockquote {
     position: absolute;
     right: 20px;
     top: 45px; }
+
+@media (max-width: 750px) {
+  .lecture {
+    height: 250px; }
+    .lecture__date-time {
+      width: 75px;
+      height: 75px; }
+    .lecture__day {
+      font-size: 30px;
+      line-height: 30px; }
+    .lecture__month {
+      font-size: 16px; }
+    .lecture__content {
+      margin-left: 0;
+      max-width: 100%;
+      float: none;
+      display: block;
+      padding-top: 80px; }
+    .lecture__description {
+      white-space: inherit;
+      max-height: 75px; }
+    .lecture__language {
+      left: 95px;
+      right: 0;
+      top: 5px; }
+    .lecture__time {
+      left: 95px;
+      right: 0;
+      top: 30px; }
+    .lecture__location {
+      padding: 5px 10px; }
+    .lecture__course {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      border-radius: 0; } }
 
 .button {
   padding: 15px 50px;
@@ -766,11 +808,45 @@ blockquote {
       color: #FFFFFF;
       border: 1px solid #e3e3e3;
       cursor: pointer; }
+  .button--info {
+    background-color: #5bc0de;
+    color: #FFFFFF;
+    border: 1px solid #46b8da; }
+    .button--info:hover {
+      background-color: #46b8da;
+      color: #FFFFFF;
+      border: 1px solid #31b0d6;
+      cursor: pointer; }
+  .button--danger {
+    background-color: #ac2925;
+    color: #FFFFFF;
+    border: 1px solid #761c19; }
+    .button--danger:hover {
+      background-color: #972420;
+      color: #FFFFFF;
+      border: 1px solid #611715;
+      cursor: pointer; }
+  .button--success {
+    background-color: #5cb85c;
+    color: #FFFFFF;
+    border: 1px solid #4cae4c; }
+    .button--success:hover {
+      background-color: #4cae4c;
+      color: #FFFFFF;
+      border: 1px solid #449c44;
+      cursor: pointer; }
   .button--block {
     display: block;
     width: 100%; }
   .button--no-margin {
     margin: 0; }
+  .button--small {
+    padding: 5px 10px; }
+  .button--disabled {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    box-shadow: none;
+    opacity: .40; }
   .button--bottom {
     margin-top: 0;
     position: absolute;
@@ -781,8 +857,7 @@ blockquote {
     bottom: 23px;
     right: 20px; }
   .button--right-float {
-    float: right;
-    margin-top: 0; }
+    float: right; }
 
 .list--unstyled {
   list-style: none; }
@@ -808,7 +883,7 @@ blockquote {
   border-radius: 0px;
   margin: 0 0 10px 0;
   font-size: 16px;
-  background-color: #F0F0F0;
+  background-color: #FFFFFF;
   font-family: Helvetica, Arial, sans-serif;
   border-left: 4px solid #F0F0F0;
   transition: .5s ease-in border-left; }
@@ -833,3 +908,116 @@ blockquote {
   width: 100%; }
   .input:focus {
     outline: none; }
+
+/* -- Material Design Table style -------------- */
+.table {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24); }
+  .table table {
+    width: 100%; }
+  .table tr th {
+    font-weight: bold;
+    color: #000;
+    vertical-align: bottom;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    text-align: left;
+    padding: 1.6rem; }
+  .table tr td {
+    text-align: left;
+    padding: 1.6rem;
+    border-top: 0;
+    transition: all 0.3s ease; }
+  .table tr:hover td {
+    background-color: rgba(238, 123, 0, 0.4); }
+
+.modal-open {
+  overflow: hidden; }
+  .modal-open .modal {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important; }
+
+.modal {
+  transition: all 0.3s ease;
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  -webkit-overflow-scrolling: touch;
+  outline: 0; }
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto; }
+
+.modal-dialog {
+  position: relative;
+  width: auto;
+  max-width: 50%;
+  margin: auto; }
+
+.modal-content {
+  padding: 25px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  border-radius: 5px;
+  background-clip: padding-box;
+  outline: 0; }
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.modal-header {
+  padding: 25px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3); }
+
+.modal-header .close {
+  margin-top: -2px; }
+
+.modal-body {
+  position: relative;
+  padding: 15px; }
+
+.modal-footer {
+  padding: 15px;
+  text-align: right; }
+  .modal-footer .btn + .btn {
+    margin-left: 5px;
+    margin-bottom: 0; }
+  .modal-footer .btn-group .btn + .btn {
+    margin-left: -1px; }
+  .modal-footer .btn-block + .btn-block {
+    margin-left: 0; }
+
+.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee; }
+  .breadcrumb li {
+    display: inline;
+    font-size: 18px; }
+    .breadcrumb li a {
+      color: #0275d8;
+      text-decoration: none; }
+      .breadcrumb li a:hover {
+        color: #01447e;
+        text-decoration: underline; }
+    .breadcrumb li + li:before {
+      padding: 8px;
+      color: black;
+      content: "/\00a0"; }
