@@ -21,9 +21,6 @@
         <a class="menu__link" href="/">Home</a>
       </li>
       <li class="menu__item">
-        <a class="menu__link" href="{{ route('home') }}">Dashboard</a>
-      </li>
-      <li class="menu__item">
         <a class="menu__link" href="{{ route('colloquia.create') }}">Colloquia toevoegen</a>
       </li>
       @guest
@@ -32,6 +29,11 @@
         </li>
       @endguest
       @auth
+        @can('view', \App\Colloquium::class)
+          <li class="menu__item">
+            <a class="menu__link" href="{{ route('colloquia.index') }}">Colloquia</a>
+          </li>
+        @endcan
         @can('view', \App\Training::class)
           <li class="menu__item">
             <a class="menu__link" href="{{ route('trainings.index') }}">Opleidingen</a>

@@ -10,23 +10,31 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/* Routes for the authentication system. */
 Auth::routes();
 
-Route::get('/', 'ColloquiaController@index')->name('colloquia.index');
-Route::get('/tv', 'ColloquiaController@tv')->name('tv');
+/* Homepage */
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/tv', 'HomeController@tv')->name('tv');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
-Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');
-Route::post('/colloquia', 'ColloquiaController@store')->name('colloquia.store');
+
 Route::get('/colloquia/{colloquium}', 'ColloquiaController@show')->name('colloquia.show');
 Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
 Route::post('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
 
 /*
- * Authenticated routes.
+ * Secured pages.
  */
 Route::middleware('auth')->group(function() {
+
+    /*
+     * Colloquia
+     */
+    Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
+    Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');
+    Route::post('/colloquia', 'ColloquiaController@store')->name('colloquia.store');
+
     Route::get('/users', 'UsersController@index')->name('users.index');
     Route::get('/users/create', 'UsersController@create')->name('users.create');
     Route::post('/users', 'UsersController@store')->name('users.store');

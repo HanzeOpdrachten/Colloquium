@@ -9,26 +9,30 @@ use App\Colloquium;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Display all colloquia for the desktop.
      *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-      $colloquia = Colloquium::oldest('start_date')
-          ->where('status', '=', Colloquium::AWAITING)
-          ->get();
+        $colloquia = Colloquium::oldest('start_date')
+            ->where('status', '=', Colloquium::ACCEPTED)
+            ->get();
 
         return view('home', compact('colloquia'));
+    }
+
+    /**
+     * Display all colloquia for the television.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function tv()
+    {
+        $colloquia = Colloquium::oldest('start_date')
+            ->where('status', '=', Colloquium::ACCEPTED)
+            ->get();
+
+        return view('tv', compact('colloquia'));
     }
 }

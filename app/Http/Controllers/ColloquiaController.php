@@ -7,11 +7,21 @@ use App\Colloquium;
 use App\Notifications\Colloquium\Status;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class ColloquiaController extends Controller
 {
+    /**
+     * Display a list of all colloquia.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        $colloquia = Colloquium::orderBy('status', Colloquium::AWAITING, 'asc')->get();
+
+        return view('colloquia.index', compact('colloquia'));
+    }
+
     /**
      * Display a specific colloquium.
      *
@@ -24,40 +34,14 @@ class ColloquiaController extends Controller
     }
 
     /**
-     * Display all colloquia for the desktop.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        $colloquia = Colloquium::oldest('start_date')
-            ->where('status', '=', Colloquium::ACCEPTED)
-            ->get();
-
-        return view('colloquia.index', compact('colloquia'));
-    }
-
-    /**
-     * Display all colloquia for the television.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function tv()
-    {
-        $colloquia = Colloquium::oldest('start_date')
-            ->where('status', '=', Colloquium::ACCEPTED)
-            ->get();
-
-        return view('colloquia.tv', compact('colloquia'));
-    }
-
-    /**
      * Display the form for creation.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
+        $this->authorize('create', Colloquium::class);
+
         $trainings = Training::all();
         $statuses = [
             Colloquium::AWAITING => 'Wachten op goedkeuring',
