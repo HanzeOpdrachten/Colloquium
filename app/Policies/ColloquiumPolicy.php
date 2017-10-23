@@ -6,9 +6,20 @@ use App\Colloquium;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * Class ColloquiumPolicy
+ *
+ * @package App\Policies
+ */
 class ColloquiumPolicy
 {
     use HandlesAuthorization;
+
+    /*
+     * Note: Whenever a user is logged in, it has the role `Planner` OR `Administrator`.
+     *       Both roles are authorized to do whatever action is available in this policy.
+     *       That's why we don't have to check the role of the user beforehand.
+     */
 
     /**
      * Determine whether the user may view existing colloquia.
@@ -17,58 +28,87 @@ class ColloquiumPolicy
      */
     public function view()
     {
-        // Everyone may see all colloquia.
         return true;
     }
 
     /**
      * Determine whether the user may create new colloquia.
      *
-     * @param User $user
+     * Everyone can create a new colloquium.
+     *
      * @return bool
      */
-    public function create(User $user)
+    public function create()
     {
         return true;
     }
 
-    public function accept(User $user, Colloquium $colloquium)
-    {
-        if (!$user->isAdmin()) {
-            return false;
-        } elseif ($colloquium->)
-    }
-
     /**
-     * Determine whether the user may update existing colloquia.
+     * Determine whether the user may update an existing colloquium.
      *
-     * @param User $user
      * @return bool
      */
-    public function update(User $user)
+    public function update()
     {
-        return ($user->isAdmin() || $user->isPlanner());
+        return true;
     }
 
     /**
      * Determine whether the user may delete existing colloquia.
      *
-     * @param User $user
      * @return bool
      */
-    public function delete(User $user)
+    public function delete()
     {
-        return ($user->isAdmin() || $user->isPlanner());
+        return true;
     }
 
     /**
      * Determine whether the user may review existing colloquia.
      *
-     * @param User $user
      * @return bool
      */
-    public function review(User $user)
+    public function review()
     {
-        return ($user->isAdmin() || $user->isPlanner());
+        return true;
+    }
+
+    /**
+     * Determine whether a colloquium may be accepted or not.
+     *
+     * Only a colloquium with the status `awaiting` may be accepted.
+     *
+     * @param Colloquium $colloquium
+     * @return bool
+     */
+    public function accept(Colloquium $colloquium)
+    {
+        return ($colloquium->isAwaiting());
+    }
+
+    /**
+     * Determine whether a colloquium may be declined or not.
+     *
+     * Only a colloquium with the status `awaiting` me be declined.
+     *
+     * @param Colloquium $colloquium
+     * @return bool
+     */
+    public function decline(Colloquium $colloquium)
+    {
+        return ($colloquium->isAwaiting());
+    }
+
+    /**
+     * Determine whether the colloquium may be canceled or not.
+     *
+     * Only a colloquium with the status `accepted` may be canceled.
+     *
+     * @param Colloquium $colloquium
+     * @return bool
+     */
+    public function cancel(Colloquium $colloquium)
+    {
+        return ($colloquium->isAccepted());
     }
 }
