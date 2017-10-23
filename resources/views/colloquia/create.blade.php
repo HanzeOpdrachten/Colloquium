@@ -95,27 +95,26 @@
                 @endif
             </div>
             <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="start_time">Van</label>
-                        <input class="form__input {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="time" name="start_time" value="{{ old('start_time') }}">
-                        @if ($errors->has('start_time'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('start_time') }}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-md-6">
-                        <label for="end_time">Tot</label>
-                        <input class="form__input {{ $errors->has('end_time') ? 'is-invalid' : '' }}" type="time" name="end_time" id="end-time" value="{{ old('end_time') }}">
-                        @if ($errors->has('end_time'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('end_time') }}
-                            </div>
-                        @endif
-                    </div>
+                <div class="column column--half">
+                    <label for="start_time">Van</label>
+                    <input class="form__input {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="time" name="start_time" value="{{ old('start_time') }}">
+                    @if ($errors->has('start_time'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('start_time') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="column column--half">
+                    <label for="end_time">Tot</label>
+                    <input class="form__input {{ $errors->has('end_time') ? 'is-invalid' : '' }}" type="time" name="end_time" id="end-time" value="{{ old('end_time') }}">
+                    @if ($errors->has('end_time'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('end_time') }}
+                        </div>
+                    @endif
                 </div>
             </div>
+
 
             @auth
                 <div class="form-group">
