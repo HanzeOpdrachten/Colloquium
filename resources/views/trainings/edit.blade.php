@@ -34,7 +34,7 @@
 
                     <div class="form-group">
                         <div class="float-right">
-                            <button type="submit" class="btn btn-primary">Bijwerken</button>
+                            <button type="submit" class="button button--primary">Bijwerken</button>
                         </div>
                     </div>
                 </form>

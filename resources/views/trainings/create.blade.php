@@ -33,7 +33,7 @@
 
                     <div class="form-group">
                         <div class="float-right">
-                            <button type="submit" class="btn btn-primary">Opslaan</button>
+                            <button type="submit" class="button button--primary">Opslaan</button>
                         </div>
                     </div>
                 </form>

@@ -37,8 +37,8 @@
                   <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
                   <td>{{ $colloquium->language }}</td>
                   <td>
-                    <a href="{{ route('colloquia.accept', $colloquium->id) }}" class="btn btn-primary">Accepteren</a>
-                    <a href="{{ route('colloquia.decline', $colloquium->id) }}" class="btn btn-danger">Weigeren</a>
+                    <a href="{{ route('colloquia.accept', $colloquium->id) }}" class="button button--primary button--small">Accepteren</a>
+                    <a href="{{ route('colloquia.decline', $colloquium->id) }}" class="button button--danger button--small">Weigeren</a>
                   </td>
                 </tr>
               @endforeach

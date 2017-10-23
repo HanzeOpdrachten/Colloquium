@@ -39,6 +39,12 @@
   &--secondary
     +create-button($secondary)
 
+  &--info
+    +create-button(#5bc0de, $white, $border-color: #46b8da)
+
+  &--danger
+    +create-button(#ac2925, $white, $border-color: #761c19)
+
   // Special button settings
   &--block
     display: block
@@ -46,6 +52,16 @@
 
   &--no-margin
     margin: 0
+
+  &--small
+    padding: 5px 10px
+
+  &--disabled
+    cursor: not-allowed
+    filter: alpha(opacity=65)
+    -webkit-box-shadow: none
+    box-shadow: none
+    opacity: .65
 
   // Positioned Buttons
   // Parent needs to have a "relative" position

@@ -1,0 +1,100 @@
+.modal-open
+  overflow: hidden
+
+
+// Container that the modal scrolls within
+.modal
+  -webkit-transition: all 0.3s ease
+  -o-transition: all 0.3s ease
+  transition: all 0.3s ease
+
+  display: none
+  overflow: hidden
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 5
+  -webkit-overflow-scrolling: touch
+
+  // Prevent Chrome on Windows from adding a focus outline. For details, see
+  // https://github.com/twbs/bootstrap/pull/10951.
+  outline: 0
+
+
+
+.modal-open .modal 
+  overflow-x: hidden
+  overflow-y: auto
+
+
+// Shell div to position the modal with bottom padding
+.modal-dialog 
+  position: relative
+  width: auto
+  max-width: 50%
+  margin: auto
+
+
+// Actual modal
+.modal-content
+  padding: 25px
+  position: relative
+  background-color: rgba(255,255,255,0.8)
+  border: 1px solid rgba(0,0,0,0.9)
+  border-radius: 5px
+  background-clip: padding-box
+  // Remove focus outline from opened modal
+  outline: 0
+
+
+// Modal background
+.modal-backdrop 
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 4
+  background-color: rgba(0,0,0,0.3)
+
+
+
+// Modal header
+// Top section of the modal w/ title and dismiss
+.modal-header 
+  padding: 25px
+  border-bottom: 1px solid rgba(0,0,0,0.3)
+
+// Close icon
+.modal-header .close 
+  margin-top: -2px
+
+
+
+
+// Modal body
+// Where all modal content resides (sibling of .modal-header and .modal-footer)
+.modal-body 
+  position: relative
+  padding: 15px
+
+// Footer (for actions)
+.modal-footer 
+  padding: 15px
+  text-align: right // right align buttons
+
+  // Properly space out buttons
+  .btn + .btn 
+    margin-left: 5px
+    margin-bottom: 0 // account for input[type="submit"] which gets the bottom margin like all other inputs
+
+  // but override that for button groups
+  .btn-group .btn + .btn 
+    margin-left: -1px
+
+  // and override it for block buttons as well
+  .btn-block + .btn-block 
+    margin-left: 0
+

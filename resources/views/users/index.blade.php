@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="row">
         @include('layouts.alerts')
-        <div class="row">
-            <div class="col-md-12">
-                <a href="{{ route('users.create') }}" class="btn btn-primary float-right">Gebruikers toevoegen</a>
-            </div>
-        </div>
+
+        <a href="{{ route('users.create') }}" class="button button--primary">Gebruiker toevoegen</a>
+    </div>
+
+    <div class="row">
         <table class="table table-responsive mt-5">
             <thead>
                 <tr>
@@ -28,8 +28,8 @@
                             <td>Planner</td>
                         @endif
                         <td>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Bewerken</a>
-                            <a data-href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger {{ Auth::user()->id == $user->id ? 'disabled' : ''}}" data-toggle="modal" data-target="#delete">Verwijderen</a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
+                            <a data-href="{{ route('users.destroy', $user->id) }}" class="button button--danger button--small button--no-margin {{ Auth::user()->id == $user->id ? 'button--disabled' : ''}}" data-toggle="modal" data-target="#delete">Verwijderen</a>
                         </td>
                     </tr>
                 @endforeach
@@ -49,9 +49,9 @@
                     <form method="post" action="">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button type="submit" class="btn btn-primary">Gebruiker verwijderen</button>
+                        <button type="submit" class="button button--primary">Gebruiker verwijderen</button>
                     </form>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                    <button type="button" class="button button--secondary" data-dismiss="modal">Sluiten</button>
                 </div>
             </div>
         </div>
