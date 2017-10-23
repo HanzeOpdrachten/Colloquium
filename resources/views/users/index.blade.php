@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
+    <div class="column column--whole">
         @include('layouts.alerts')
 
-        <a href="{{ route('users.create') }}" class="button button--primary">Gebruiker toevoegen</a>
+        <a href="{{ route('users.create') }}" class="button button--primary button--right-float">Gebruiker toevoegen</a>
     </div>
 
-    <div class="row">
+    <div class="column column--whole">
         <table class="table table-responsive mt-5">
             <thead>
                 <tr>

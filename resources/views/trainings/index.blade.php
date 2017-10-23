@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <a href="{{ route('trainings.create') }}" class="button button--primary">Opleiding toevoegen</a>
+    <div class="column column--whole">
+        <a href="{{ route('trainings.create') }}" class="button button--primary button--right-float">Opleiding toevoegen</a>
     </div>
-    <div class="row">
+    <div class="column column--whole">
         <table class="table table-responsive mt-3">
             <thead>
                 <tr>
@@ -21,9 +21,9 @@
                     <td>
                         <a href="{{ route('trainings.edit', $training->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
                         @if (Auth::user()->isSubscribed($training))
-                            <a href="{{ route('trainings.subscribe', $training->id) }}" class="btn btn-success subscribe">Abonneren</a>
+                            <a href="{{ route('trainings.subscribe', $training->id) }}" class="button button--success button--small button--no-margin subscribe">Abonneren</a>
                         @else
-                            <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="button button--secondary button--small subscribe">Geabonneerd</a>
+                            <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="button button--secondary button--small button--no-margin subscribe">Geabonneerd</a>
                         @endif
                     </td>
                 </tr>

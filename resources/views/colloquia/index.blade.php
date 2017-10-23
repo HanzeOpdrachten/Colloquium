@@ -6,7 +6,7 @@
     @auth
       @if(Auth::user()->isAdmin() || Auth::user()->isPlanner())
         @include('layouts.alerts')
-        <a href="{{ route('colloquia.create') }}" class="button button--secondary">Colloquium toevoegen</a>
+        <a href="{{ route('colloquia.create') }}" class="button button--secondary button--right-float">Colloquium toevoegen</a>
       @endif
     @endauth
   </div>
