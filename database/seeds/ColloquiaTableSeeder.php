@@ -20,7 +20,7 @@ class ColloquiaTableSeeder extends Seeder
           [
               'id' => 1,
               'title' => 'Lorem ipsum vendor',
-              'training_id' => 1,
+              'training_id' => 2,
               'start_date' => Carbon::now()->addDay(5),
               'end_date' => Carbon::now()->addDay(5)->addHour(1),
               'speaker' => 'John Doe',
@@ -34,7 +34,7 @@ class ColloquiaTableSeeder extends Seeder
           [
               'id' => 2,
               'title' => 'Lorem ipsum dolar sir amet',
-              'training_id' => 2,
+              'training_id' => 3,
               'start_date' => Carbon::now()->addDay(6),
               'end_date' => Carbon::now()->addDay(6)->addHour(1),
               'speaker' => 'John Doe',

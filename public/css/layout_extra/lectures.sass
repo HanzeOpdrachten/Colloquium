@@ -1,0 +1,94 @@
+.lecture
+  background-color: $white
+  height: 140px
+  width: 100%
+  position: relative
+
+  & + .lecture
+    margin-top: 20px
+
+  &__date-time
+    float: left
+    background-color: $secondary
+    color: $white
+    height: 100%
+    width: 150px
+    display: flex
+    align-items: center
+    align-content: center
+    justify-content: center
+    flex-direction: column
+    text-transform: uppercase
+
+  &__day
+    display: inline-block
+    font-weight: 500
+    line-height: 60px
+    font-size: 60px
+
+  &__month
+    display: inline-block
+    font-weight: 600
+    font-size: 20px
+
+  &__content
+    display: inline-block
+    float: left
+    height: 100%
+    padding: 20px
+
+  &__title
+    margin-bottom: 8px
+    max-width: 600px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  &__description
+    font-weight: 300
+    margin-bottom: 8px
+    max-width: 600px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  &__course
+    padding: 5px 15px
+    border-radius: 30px
+    font-weight: 600
+    color: $white
+    background-color: $primary
+
+  &__location
+    right: 20px
+    padding: 15px 30px
+    position: absolute
+    bottom: -10px
+    color: white
+    background-color: $primary
+    font-size: 18px
+    font-weight: 600
+
+    &:after
+      content: ""
+      width: 0
+      height: 0
+      border: 5px solid transparent
+      position: absolute
+      border-top-color: darken($primary,10%)
+      border-right-color: darken($primary,10%)
+      transform-origin: top
+      left: -10px
+      bottom: 0
+
+  &__language
+    position: absolute
+    right: 20px
+    top: 20px
+    font-weight: 600
+    text-transform: uppercase
+
+  &__time
+    position: absolute
+    right: 20px
+    top: 45px

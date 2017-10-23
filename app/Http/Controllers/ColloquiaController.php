@@ -179,4 +179,22 @@ class ColloquiaController extends Controller
           ->route('home')
           ->with('success', 'Colloquium is succesvol geweigerd. Het colloquium is nu niet zichtbaar in het overzicht.');
     }
+
+	/**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Colloquium $colloquium
+	 *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Colloquium $colloquium, UpdateRequest $request)
+    {
+		$colloquium->fill($request->all())
+			->save();
+
+		return redirect()
+			->route('colloquia.show', $colloquium->id)
+			->with('success', 'The colloquium has been edited.');
+    }
 }

@@ -1,0 +1,18 @@
+.page
+  background-color: $white
+  position: relative
+
+  &__title
+    color: $primary
+    &--subtitle
+      color: $black
+      font-size: 12px
+
+  &__content
+    width: 50%
+    padding: 30px
+    display: inline-block
+    float: left
+
+    +media($s-contained)
+      width: 100%
