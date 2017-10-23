@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    @include('components.breadcrumbs', [
+        'crumbs' => [
+            'Home' => route('home'),
+            'Gebruikers' => route('users.index'),
+            'Gebruiker ' . $user->name => '#'
+        ]
+    ])
+@endsection
+
 @section('content')
     <div class="container">
         @include('layouts.alerts')
@@ -8,7 +18,7 @@
             {{ method_field('PATCH') }}
             <div class="form-group">
                 <label for="name">Naam</label>
-                <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ $user->name }}">
+                <input type="text" class="form__input {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ $user->name }}">
                 @if ($errors->has('name'))
                     <div class="invalid-feedback">
                         {{ $errors->first('name') }}
@@ -17,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label for="email">E-mailadres</label>
-                <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" id="email" value="{{ $user->email }}">
+                <input type="email" class="form__input {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" id="email" value="{{ $user->email }}">
                 @if ($errors->has('email'))
                     <div class="invalid-feedback">
                         {{ $errors->first('email') }}
@@ -26,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label for="role">Rol</label>
-                <select class="form-control {{ $errors->has('role') ? 'is-invalid' : '' }}" name="role">
+                <select class="form__input {{ $errors->has('role') ? 'is-invalid' : '' }}" name="role">
                     @foreach($roles as $key => $name)
                         @if ($user->role == $key)
                             <option value="{{ $key }}" selected>{{ $name }}</option>
@@ -43,7 +53,7 @@
             </div>
             <div class="form-group">
                 <div class="float-right">
-                    <button type="submit" class="btn btn-primary">Bijwerken</button>
+                    <button type="submit" class="button button--primary">Bijwerken</button>
                 </div>
             </div>
         </form>

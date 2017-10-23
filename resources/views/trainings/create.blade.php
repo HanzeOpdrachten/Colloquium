@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    @include('components.breadcrumbs', [
+        'crumbs' => [
+            'Home' => route('home'),
+            'Opleidingen' => route('trainings.index'),
+            'Opleiding toevoegen ' => '#'
+        ]
+    ])
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -8,7 +18,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="name">Naam</label>
-                        <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}">
+                        <input type="text" class="form__input {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}">
                         @if ($errors->has('name'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('name') }}
@@ -20,7 +30,7 @@
                       <label for="color">Kleur</label>
 
                       <div class="input-group colorpicker colorpicker-component">
-                        <input type="text" value="#000000" name="color" id="color" class="form-control {{ $errors->has('color') ? 'is-invalid' : '' }}" />
+                        <input type="text" value="#000000" name="color" id="color" class="form__input {{ $errors->has('color') ? 'is-invalid' : '' }}" />
                         <span class="input-group-addon"><i></i></span>
                       </div>
 
@@ -33,7 +43,7 @@
 
                     <div class="form-group">
                         <div class="float-right">
-                            <button type="submit" class="btn btn-primary">Opslaan</button>
+                            <button type="submit" class="button button--primary">Opslaan</button>
                         </div>
                     </div>
                 </form>

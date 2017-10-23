@@ -2,7 +2,6 @@
 
 // General
 const gulp =                				require('gulp');
-// const browserSync =         				require('browser-sync').create();
 const notify =              				require('gulp-notify');
 
 // CSS
@@ -18,9 +17,6 @@ const uglify =              				require('gulp-uglify');
 const concat =              				require('gulp-concat');
 const rename =              				require('gulp-rename');
 
-// Constants
-// const themeName =               	'assets';
-// const hostName =                  	'colloqia.dev';
 
 function notifySuccess(message) {
   return notify({
@@ -42,7 +38,7 @@ function notifyFailure(message, error) {
 
 gulp.task('compile-css', function() {
   // Read sass.
-  return gulp.src('../css/style.sass')
+  return gulp.src('resources/assets/sass/style.sass')
   // Convert to CSS by applying SASS.
   .pipe(sass({
     // Set include paths for Bourbon and Neat.
@@ -58,7 +54,7 @@ gulp.task('compile-css', function() {
   // Destination name.
   .pipe(rename('theme.min.css'))
   // Write CSS to output file.
-  .pipe(gulp.dest('../css/'))
+  .pipe(gulp.dest('public/css/'))
   // Browsersync CSS injecting.
   // .pipe(browserSync.stream())
   // Notify.
@@ -75,5 +71,16 @@ gulp.task('default', function() {
   // });
 
   // Watch SASS-file changes.
-  gulp.watch('../css/**/*.sass', ['compile-css']);
+  gulp.watch('resources/assets/sass/**/*.sass', ['compile-css']);
+
+  // Watch JS-file changes.
+  gulp.watch('resources/assets/js/**/*.js', ['compile-js']);
+});
+
+
+gulp.task('compile-js', function() {
+  gulp.src(['resources/assets/js/app.js'])
+      .pipe(concat('app.min.js'))
+      .pipe(uglify())
+      .pipe(gulp.dest('public/js/'))
 });

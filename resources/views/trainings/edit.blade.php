@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    @include('components.breadcrumbs', [
+        'crumbs' => [
+            'Home' => route('home'),
+            'Opleidingen' => route('trainings.index'),
+            'Opleiding ' . $training->name => '#'
+        ]
+    ])
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -9,7 +19,7 @@
                     {{ method_field('PATCH') }}
                     <div class="form-group">
                         <label for="name">Naam</label>
-                        <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ $training->name }}">
+                        <input type="text" class="form__input {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ $training->name }}">
                         @if ($errors->has('name'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('name') }}
@@ -21,7 +31,7 @@
                       <label for="color">Kleur</label>
 
                       <div class="input-group colorpicker colorpicker-component">
-                        <input type="text" value="#{{ $training->color }}" name="color" id="color" class="form-control  {{ $errors->has('color') ? 'is-invalid': '' }}" />
+                        <input type="text" value="#{{ $training->color }}" name="color" id="color" class="form__input  {{ $errors->has('color') ? 'is-invalid': '' }}" />
                         <span class="input-group-addon"><i></i></span>
                       </div>
 
@@ -34,7 +44,7 @@
 
                     <div class="form-group">
                         <div class="float-right">
-                            <button type="submit" class="btn btn-primary">Bijwerken</button>
+                            <button type="submit" class="button button--primary">Bijwerken</button>
                         </div>
                     </div>
                 </form>
