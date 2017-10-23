@@ -18,12 +18,9 @@ Route::get('/colloquia', 'ColloquiaController@index')->name('colloquia.index');
 Route::get('/colloquia/create', 'ColloquiaController@create')->name('colloquia.create');
 Route::post('/colloquia', 'ColloquiaController@store')->name('colloquia.store');
 Route::get('/colloquia/{colloquium}', 'ColloquiaController@show')->name('colloquia.show');
-<<<<<<< HEAD
 Route::get('/colloquia/{token}/manage', 'ColloquiaController@manage')->name('colloquia.manage');
-=======
 Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
-Route::post('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
->>>>>>> develop
+Route::patch('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
 
 /*
  * Authenticated routes.
