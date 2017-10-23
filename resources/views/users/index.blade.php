@@ -4,7 +4,7 @@
     <div class="column column--whole">
         @include('layouts.alerts')
 
-        <a href="{{ route('users.create') }}" class="button button--primary button--right-float">Gebruiker toevoegen</a>
+        <a href="{{ route('users.create') }}" class="button button--primary button--right-float">Add user</a>
     </div>
 
     <div class="column column--whole">
@@ -12,10 +12,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Naam</th>
-                        <th>E-mailadres</th>
-                        <th>Rol</th>
-                        <th>Opties</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,8 +29,8 @@
                                 <td>Planner</td>
                             @endif
                             <td>
-                                <a href="{{ route('users.edit', $user->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
-                                <a data-href="{{ route('users.destroy', $user->id) }}" class="button button--danger button--small button--no-margin {{ Auth::user()->id == $user->id ? 'button--disabled' : ''}}" data-toggle="modal" data-target="#delete">Verwijderen</a>
+                                <a href="{{ route('users.edit', $user->id) }}" class="button button--info button--small button--no-margin">Edit</a>
+                                <a data-href="{{ route('users.destroy', $user->id) }}" class="button button--danger button--small button--no-margin {{ Auth::user()->id == $user->id ? 'button--disabled' : ''}}" data-toggle="modal" data-target="#delete">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -42,18 +42,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Gebruiker verwijderen</h5>
+                    <h5 class="modal-title">Delete user</h5>
                 </div>
                 <div class="modal-body">
-                    Weet u zeker dat u deze gebruiker wilt verwijderen?
+                    Are you sure you want to delete this user?
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button type="submit" class="button button--primary">Gebruiker verwijderen</button>
+                        <button type="submit" class="button button--primary">Delete user</button>
                     </form>
-                    <button type="button" class="button button--secondary" data-dismiss="modal">Annuleren</button>
+                    <button type="button" class="button button--secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>

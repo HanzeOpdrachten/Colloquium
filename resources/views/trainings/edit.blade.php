@@ -4,8 +4,8 @@
     @include('components.breadcrumbs', [
         'crumbs' => [
             'Home' => route('home'),
-            'Opleidingen' => route('trainings.index'),
-            'Opleiding ' . $training->name => '#'
+            'Trainings' => route('trainings.index'),
+            'Edit ' . $training->name => '#'
         ]
     ])
 @endsection
@@ -18,7 +18,7 @@
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
                     <div class="form-group">
-                        <label for="name">Naam</label>
+                        <label for="name">Name</label>
                         <input type="text" class="form__input {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ $training->name }}">
                         @if ($errors->has('name'))
                             <div class="invalid-feedback">
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="color">Kleur</label>
+                      <label for="color">Color</label>
 
                       <div class="input-group colorpicker colorpicker-component">
                         <input type="text" value="#{{ $training->color }}" name="color" id="color" class="form__input  {{ $errors->has('color') ? 'is-invalid': '' }}" />
@@ -44,7 +44,7 @@
 
                     <div class="form-group">
                         <div class="float-right">
-                            <button type="submit" class="button button--primary">Bijwerken</button>
+                            <button type="submit" class="button button--primary">Save</button>
                         </div>
                     </div>
                 </form>

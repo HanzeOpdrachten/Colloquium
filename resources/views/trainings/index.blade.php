@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="column column--whole">
-        <a href="{{ route('trainings.create') }}" class="button button--primary button--right-float">Opleiding toevoegen</a>
+        <a href="{{ route('trainings.create') }}" class="button button--primary button--right-float">Add training</a>
     </div>
     <div class="column column--whole">
         <div class="table">
             <table>
                 <thead>
                     <tr>
-                        <th>Naam</th>
-                        <th>Kleur</th>
-                        <th>Opties</th>
+                        <th>Name</th>
+                        <th>Color</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,13 +21,13 @@
                             <td>{{ $training->name }}</td>
                             <td>{{ $training->color }}</td>
                             <td>
-                                <a href="{{ route('trainings.edit', $training->id) }}" class="btn btn-info">Bewerken</a>
+                                <a href="{{ route('trainings.edit', $training->id) }}" class="btn btn-info">Edit</a>
                                 @if (Auth::user()->isSubscribed($training))
-                                    <a href="{{ route('trainings.subscribe', $training->id) }}" class="btn btn-success subscribe">Abonneren</a>
+                                    <a href="{{ route('trainings.subscribe', $training->id) }}" class="btn btn-success subscribe">Subscribe</a>
                                 @else
-                                    <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="btn btn-secondary subscribe">Geabonneerd</a>
+                                    <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="btn btn-secondary subscribe">Subscribed</a>
                                 @endif
-                                <a data-href="{{ route('trainings.destroy', $training->id) }}" class="btn btn-danger" data-toggle="modal" data-target="#delete">Verwijderen</a>
+                                <a data-href="{{ route('trainings.destroy', $training->id) }}" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</a>
                             </td>
                         </tr>
                         @endif
@@ -41,7 +41,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Opleiding verwijderen</h5>
+                    <h5 class="modal-title">Delete training</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -50,30 +50,9 @@
                     <form method="post" action="">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button type="submit" class="btn btn-primary">Opleiding verwijderen</button>
+                        <button type="submit" class="btn btn-primary">Delete training</button>
                     </form>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="subscribe" class="modal fade">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">E-mails ontvangen van colloquia over: <span id="training-name"></span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <form method="post" action="">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <button type="submit" class="button button--primary">Gebruiker verwijderen</button>
-                    </form>
-                    <button type="button" class="button button--secondary" data-dismiss="modal">Sluiten</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

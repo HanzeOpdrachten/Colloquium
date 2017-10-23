@@ -4,8 +4,8 @@
     @include('components.breadcrumbs', [
         'crumbs' => [
             'Home' => route('home'),
-            'Gebruikers' => route('users.index'),
-            'Gebruiker ' . $user->name => '#'
+            'Users' => route('users.index'),
+            'Edit ' . $user->name => '#'
         ]
     ])
 @endsection
@@ -17,7 +17,7 @@
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
             <div class="form-group">
-                <label for="name">Naam</label>
+                <label for="name">Name</label>
                 <input type="text" class="form__input {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ $user->name }}">
                 @if ($errors->has('name'))
                     <div class="invalid-feedback">
@@ -26,7 +26,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="email">E-mailadres</label>
+                <label for="email">Email</label>
                 <input type="email" class="form__input {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" id="email" value="{{ $user->email }}">
                 @if ($errors->has('email'))
                     <div class="invalid-feedback">
@@ -35,7 +35,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="role">Rol</label>
+                <label for="role">Role</label>
                 <select class="form__input {{ $errors->has('role') ? 'is-invalid' : '' }}" name="role">
                     @foreach($roles as $key => $name)
                         @if ($user->role == $key)
@@ -53,7 +53,7 @@
             </div>
             <div class="form-group">
                 <div class="float-right">
-                    <button type="submit" class="button button--primary">Bijwerken</button>
+                    <button type="submit" class="button button--primary">Save</button>
                 </div>
             </div>
         </form>

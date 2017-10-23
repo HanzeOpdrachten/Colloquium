@@ -4,8 +4,8 @@
     @include('components.breadcrumbs', [
         'crumbs' => [
             'Home' => route('home'),
-            'Opleidingen' => route('trainings.index'),
-            'Opleiding toevoegen ' => '#'
+            'Trainings' => route('trainings.index'),
+            'Add training' => '#'
         ]
     ])
 @endsection
@@ -17,7 +17,7 @@
                 <form method="post" action="{{ route('trainings.store') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="name">Naam</label>
+                        <label for="name">Name</label>
                         <input type="text" class="form__input {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}">
                         @if ($errors->has('name'))
                             <div class="invalid-feedback">
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="color">Kleur</label>
+                      <label for="color">Color</label>
 
                       <div class="input-group colorpicker colorpicker-component">
                         <input type="text" value="#000000" name="color" id="color" class="form__input {{ $errors->has('color') ? 'is-invalid' : '' }}" />
@@ -43,7 +43,7 @@
 
                     <div class="form-group">
                         <div class="float-right">
-                            <button type="submit" class="button button--primary">Opslaan</button>
+                            <button type="submit" class="button button--primary">Save</button>
                         </div>
                     </div>
                 </form>

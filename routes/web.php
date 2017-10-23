@@ -25,7 +25,6 @@ Route::get('/tv', 'HomeController@tv')->name('tv');
  */
 Route::get('/colloquia/request', 'ColloquiaController@request')->name('colloquia.request');
 Route::get('/colloquia/request/{token}/edit', 'ColloquiaController@editRequest')->name('colloquia.request.edit');
-Route::get('/colloquia/{colloquium}', 'ColloquiaController@show')->name('colloquia.show');
 
 /*
  * Secured pages.
@@ -67,3 +66,6 @@ Route::middleware('auth')->group(function() {
     Route::patch('/trainings/{training}', 'TrainingsController@update')->name('trainings.update');
     Route::delete('/trainings/{training}', 'TrainingsController@destroy')->name('trainings.destroy');
 });
+
+// Put route here because of the first parameter.
+Route::get('/colloquia/{colloquium}', 'ColloquiaController@show')->name('colloquia.show');

@@ -78,10 +78,11 @@ class ColloquiumPolicy
      *
      * Only a colloquium with the status `awaiting` may be accepted.
      *
+     * @param User $user
      * @param Colloquium $colloquium
      * @return bool
      */
-    public function accept(Colloquium $colloquium)
+    public function accept(User $user, Colloquium $colloquium)
     {
         return ($colloquium->isAwaiting());
     }
@@ -91,10 +92,11 @@ class ColloquiumPolicy
      *
      * Only a colloquium with the status `awaiting` me be declined.
      *
+     * @param User $user
      * @param Colloquium $colloquium
      * @return bool
      */
-    public function decline(Colloquium $colloquium)
+    public function decline(User $user, Colloquium $colloquium)
     {
         return ($colloquium->isAwaiting());
     }
@@ -104,10 +106,11 @@ class ColloquiumPolicy
      *
      * Only a colloquium with the status `accepted` may be canceled.
      *
+     * @param User $user
      * @param Colloquium $colloquium
      * @return bool
      */
-    public function cancel(Colloquium $colloquium)
+    public function cancel(User $user, Colloquium $colloquium)
     {
         return ($colloquium->isAccepted());
     }

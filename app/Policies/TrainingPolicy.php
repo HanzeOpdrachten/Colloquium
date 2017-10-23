@@ -61,6 +61,6 @@ class TrainingPolicy
      */
     public function subscribe(User $user)
     {
-        return ($user->isPlanner());
+        return ($user->isPlanner() || $user->isAdmin());
     }
 }

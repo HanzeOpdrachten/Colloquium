@@ -17,7 +17,7 @@ class ColloquiaController extends Controller
      */
     public function index()
     {
-        $colloquia = Colloquium::orderBy('status', Colloquium::AWAITING, 'asc')->get();
+        $colloquia = Colloquium::orderBy('status', 'asc')->get();
 
         return view('colloquia.index', compact('colloquia'));
     }

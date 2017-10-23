@@ -17,8 +17,7 @@ class UsersController extends Controller
     {
         $this->authorize('view', User::class);
 
-        // Don't display student yet because they're not officially part of the roles yet.
-        $users = User::where('role', '!=', User::STUDENT)->get();
+        $users = User::all();
 
         return view('users.index', compact('users'));
     }
