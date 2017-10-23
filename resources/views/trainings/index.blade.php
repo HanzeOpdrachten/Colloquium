@@ -5,31 +5,33 @@
         <a href="{{ route('trainings.create') }}" class="button button--primary button--right-float">Opleiding toevoegen</a>
     </div>
     <div class="column column--whole">
-        <table class="table table-responsive mt-3">
-            <thead>
-                <tr>
-                    <th>Naam</th>
-                    <th>Kleur</th>
-                    <th>Opties</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($trainings as $training)
-                <tr>
-                    <td>{{ $training->name }}</td>
-                    <td>{{ $training->color }}</td>
-                    <td>
-                        <a href="{{ route('trainings.edit', $training->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
-                        @if (Auth::user()->isSubscribed($training))
-                            <a href="{{ route('trainings.subscribe', $training->id) }}" class="button button--success button--small button--no-margin subscribe">Abonneren</a>
-                        @else
-                            <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="button button--secondary button--small button--no-margin subscribe">Geabonneerd</a>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Kleur</th>
+                        <th>Opties</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($trainings as $training)
+                    <tr>
+                        <td>{{ $training->name }}</td>
+                        <td>{{ $training->color }}</td>
+                        <td>
+                            <a href="{{ route('trainings.edit', $training->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
+                            @if (Auth::user()->isSubscribed($training))
+                                <a href="{{ route('trainings.subscribe', $training->id) }}" class="button button--success button--small button--no-margin subscribe">Abonneren</a>
+                            @else
+                                <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="button button--secondary button--small button--no-margin subscribe">Geabonneerd</a>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
 

@@ -8,33 +8,35 @@
     </div>
 
     <div class="column column--whole">
-        <table class="table table-responsive mt-5">
-            <thead>
-                <tr>
-                    <th>Naam</th>
-                    <th>E-mailadres</th>
-                    <th>Rol</th>
-                    <th>Opties</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($users as $user)
+        <div class="table">
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        @if ($user->isAdmin())
-                            <td>Administrator</td>
-                        @elseif ($user->isPlanner())
-                            <td>Planner</td>
-                        @endif
-                        <td>
-                            <a href="{{ route('users.edit', $user->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
-                            <a data-href="{{ route('users.destroy', $user->id) }}" class="button button--danger button--small button--no-margin {{ Auth::user()->id == $user->id ? 'button--disabled' : ''}}" data-toggle="modal" data-target="#delete">Verwijderen</a>
-                        </td>
+                        <th>Naam</th>
+                        <th>E-mailadres</th>
+                        <th>Rol</th>
+                        <th>Opties</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($users as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            @if ($user->isAdmin())
+                                <td>Administrator</td>
+                            @elseif ($user->isPlanner())
+                                <td>Planner</td>
+                            @endif
+                            <td>
+                                <a href="{{ route('users.edit', $user->id) }}" class="button button--info button--small button--no-margin">Bewerken</a>
+                                <a data-href="{{ route('users.destroy', $user->id) }}" class="button button--danger button--small button--no-margin {{ Auth::user()->id == $user->id ? 'button--disabled' : ''}}" data-toggle="modal" data-target="#delete">Verwijderen</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     <div id="delete" class="modal fade">
         <div class="modal-dialog" role="document">
