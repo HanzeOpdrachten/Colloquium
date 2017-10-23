@@ -1,5 +1,6 @@
 /node_modules
 /public/css/theme.min.css
+public/css/theme.min.css
 /public/js/app.min.js
 /public/hot
 /public/storage
@@ -15,4 +16,4 @@ yarn-error.log
 config/
 sftp-config.json
 composer.phar
-.package-lock.json
+package-lock.json
