@@ -18,7 +18,7 @@ class ColloquiaController extends Controller
      */
     public function show(Colloquium $colloquium)
     {
-      return view('colloquia.show', compact('colloquium'));
+        return view('colloquia.show', compact('colloquium'));
     }
 
     /**
@@ -148,17 +148,18 @@ class ColloquiaController extends Controller
      * Accept a colloquium.
      *
      * @param Colloquium $colloquium
-     * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function accept(Colloquium $colloquium, UpdateRequest $request)
+    public function accept(Colloquium $colloquium)
     {
-      $colloquium->status = Colloquium::ACCEPTED;
-      $colloquium->save();
+        $this->authorize('accept', $colloquium);
 
-      return redirect()
-          ->route('home')
-          ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
+        $colloquium->status = Colloquium::ACCEPTED;
+        $colloquium->save();
+
+        return redirect()
+            ->route('home')
+            ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
     }
 
     /**
