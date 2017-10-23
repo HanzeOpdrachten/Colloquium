@@ -26,11 +26,11 @@
               </tr>
               <tr>
                 <th scope="row"><i class="fa fa-calendar-o"></i> Begint op</th>
-                <td>{{ $colloquium->start_date }} ({{ $colloquium->start_date->diffForHumans() }})</td>
+                <td>{{ $colloquium->start_date->format('d-m-Y H:i') }} ({{ $colloquium->start_date->diffForHumans() }})</td>
               </tr>
               <tr>
-                <th scope="row"><i class="fa fa-calendar-o"></i> Eindigt op</th>
-                <td>{{ $colloquium->end_date }}</td>
+                <th scope="row"><i class="fa fa-clock-o"></i> Duur</th>
+                <td>{{ gmdate('H:i', \Carbon\Carbon::parse($colloquium->end_date)->diffInSeconds($colloquium->start_date)) }}</td>
               </tr>
               <tr>
                 <th scope="row" width="15%;"><i class="fa fa-language"></i> Taal</th>

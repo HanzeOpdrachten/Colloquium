@@ -111,6 +111,46 @@ class Colloquium extends Model
     }
 
     /**
+     * Is awaiting.
+     *
+     * @return bool
+     */
+    public function isAwaiting()
+    {
+        return ($this->attributes['status'] == self::AWAITING);
+    }
+
+    /**
+     * Is accepted.
+     *
+     * @return bool
+     */
+    public function isAccepted()
+    {
+        return ($this->attributes['status'] == self::ACCEPTED);
+    }
+
+    /**
+     * Is declined.
+     *
+     * @return bool
+     */
+    public function isDeclined()
+    {
+        return ($this->attributes['status'] == self::DECLINED);
+    }
+
+    /**
+     * Is canceled.
+     *
+     * @return bool
+     */
+    public function isCanceled()
+    {
+        return ($this->attributes['status'] == self::CANCELED);
+    }
+
+    /**
      * Belongs to one training.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

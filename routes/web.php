@@ -20,8 +20,9 @@ Route::get('/tv', 'HomeController@tv')->name('tv');
 
 
 Route::get('/colloquia/{colloquium}', 'ColloquiaController@show')->name('colloquia.show');
+Route::get('/colloquia/{token}/manage', 'ColloquiaController@manage')->name('colloquia.manage');
 Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
-Route::post('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
+Route::patch('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
 
 /*
  * Secured pages.
@@ -53,4 +54,6 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/colloquia/accept/{colloquium}', 'ColloquiaController@accept')->name('colloquia.accept');
     Route::get('/colloquia/decline/{colloquium}', 'ColloquiaController@decline')->name('colloquia.decline');
+    Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
+    Route::patch('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
 });

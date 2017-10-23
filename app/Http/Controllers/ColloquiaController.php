@@ -11,7 +11,7 @@ use App\Http\Requests\Colloquium\UpdateRequest;
 class ColloquiaController extends Controller
 {
     /**
-     * Display a list of all colloquia.
+     * Display all
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -106,11 +106,12 @@ class ColloquiaController extends Controller
      * Display the edit form for the resource.
      *
      * @param Colloquium $colloquium
-     * @param UpdateRequest $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Colloquium $colloquium, UpdateRequest $request)
+    public function edit(Colloquium $colloquium)
     {
+        $this->authorize('update', Colloquium::class);
+
         $trainings = Training::all();
         $statuses = [
             Colloquium::AWAITING => 'Wachten op goedkeuring',
@@ -121,16 +122,53 @@ class ColloquiaController extends Controller
         return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
     }
 
-    public function accept(Colloquium $colloquium, UpdateRequest $request)
+    /**
+     * Display the edit form for the speaker.
+     *
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function manage($token)
     {
-      $colloquium->status = Colloquium::ACCEPTED;
-      $colloquium->save();
+        // Find colloquium by token.
+        $colloquium = Colloquium::where('token', '=', $token)->first();
 
-      return redirect()
-          ->route('home')
-          ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
+        // Requested colloquium doesn't exist.
+        // Show 404 page.
+        if ($colloquium === null) {
+            return abort(404);
+        }
+
+        $trainings = Training::all();
+
+        return view('colloquia.edit', compact('colloquium', 'trainings'));
     }
 
+    /**
+     * Accept a colloquium.
+     *
+     * @param Colloquium $colloquium
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function accept(Colloquium $colloquium)
+    {
+        $this->authorize('accept', $colloquium);
+
+        $colloquium->status = Colloquium::ACCEPTED;
+        $colloquium->save();
+
+        return redirect()
+            ->route('home')
+            ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
+    }
+
+    /**
+     * Decline a colloquium.
+     *
+     * @param Colloquium $colloquium
+     * @param UpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function decline(Colloquium $colloquium, UpdateRequest $request)
     {
       $colloquium->status = Colloquium::DECLINED;

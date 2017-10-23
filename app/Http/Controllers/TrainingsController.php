@@ -45,22 +45,11 @@ class TrainingsController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $training = Training::create($request->all());
+        Training::create($request->all());
 
         return redirect()
             ->route('trainings.index')
             ->with('success', 'De opleiding is toegevoegd.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Training $training
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Training $training)
-    {
-        //
     }
 
     /**
@@ -101,14 +90,13 @@ class TrainingsController extends Controller
     {
         $this->authorize('delete', $training);
 
-        $colloquia = Colloquium::where('training_id', $training->id)
-            ->update(['training_id' => 1]);
-
+        // Delete all colloquia belonging to this training
+        $training->colloquia()->delete();
         $training->delete();
 
         return redirect()
             ->route('trainings.index')
-            ->with('success', 'Opleiding verwijdert.');
+            ->with('success', 'Opleiding verwijderd.');
     }
 
     /**
@@ -120,6 +108,8 @@ class TrainingsController extends Controller
      */
     public function subscribe(Training $training, Request $request)
     {
+        $this->authorize('subscribe', $training);
+
         $user = $request->user();
         $training->subscribers()->toggle($user->id);
 
@@ -136,6 +126,8 @@ class TrainingsController extends Controller
      */
     public function unsubscribe(Training $training, Request $request)
     {
+        $this->authorize('subscribe', $training);
+
         $user = $request->user();
         $training->subscribers()->toggle($user->id);
 
