@@ -108,6 +108,8 @@ class TrainingsController extends Controller
      */
     public function subscribe(Training $training, Request $request)
     {
+        $this->authorize('subscribe', $training);
+
         $user = $request->user();
         $training->subscribers()->toggle($user->id);
 
@@ -124,6 +126,8 @@ class TrainingsController extends Controller
      */
     public function unsubscribe(Training $training, Request $request)
     {
+        $this->authorize('subscribe', $training);
+
         $user = $request->user();
         $training->subscribers()->toggle($user->id);
 
