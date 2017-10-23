@@ -11,7 +11,7 @@ use App\Http\Requests\Colloquium\UpdateRequest;
 class ColloquiaController extends Controller
 {
     /**
-     * Display all
+     * Display all colloquia.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -50,6 +50,40 @@ class ColloquiaController extends Controller
         ];
 
         return view('colloquia.create', compact('trainings', 'statuses'));
+    }
+
+    /**
+     * Display the form requesting a colloquium.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function request()
+    {
+        $trainings = Training::all();
+
+        return view('colloquia.create', compact('trainings'));
+    }
+
+    /**
+     * Display the edit form for the speaker.
+     *
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editRequest($token)
+    {
+        // Find colloquium by token.
+        $colloquium = Colloquium::where('token', '=', $token)->first();
+
+        // Requested colloquium doesn't exist.
+        // Show 404 page.
+        if ($colloquium === null) {
+            return abort(404);
+        }
+
+        $trainings = Training::all();
+
+        return view('colloquia.edit', compact('colloquium', 'trainings'));
     }
 
     /**
@@ -93,7 +127,7 @@ class ColloquiaController extends Controller
             $colloquium->notify(new Status($colloquium));
 
             return redirect()
-                ->route('colloquia.index')
+                ->route('home')
                 ->with('success', 'Colloquium is aangemaakt en wacht op goedkeuring. Je hebt een e-mail ontvangen met een link waarmee je de status kunt bijhouden.');
         }
 
@@ -123,28 +157,6 @@ class ColloquiaController extends Controller
     }
 
     /**
-     * Display the edit form for the speaker.
-     *
-     * @param $token
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function manage($token)
-    {
-        // Find colloquium by token.
-        $colloquium = Colloquium::where('token', '=', $token)->first();
-
-        // Requested colloquium doesn't exist.
-        // Show 404 page.
-        if ($colloquium === null) {
-            return abort(404);
-        }
-
-        $trainings = Training::all();
-
-        return view('colloquia.edit', compact('colloquium', 'trainings'));
-    }
-
-    /**
      * Accept a colloquium.
      *
      * @param Colloquium $colloquium
@@ -158,8 +170,8 @@ class ColloquiaController extends Controller
         $colloquium->save();
 
         return redirect()
-            ->route('home')
-            ->with('success', 'Colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
+            ->route('colloquia.index')
+            ->with('success', 'Het colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
     }
 
     /**
@@ -175,25 +187,25 @@ class ColloquiaController extends Controller
       $colloquium->save();
 
       return redirect()
-          ->route('home')
-          ->with('success', 'Colloquium is succesvol geweigerd. Het colloquium is nu niet zichtbaar in het overzicht.');
+          ->route('colloquia.index')
+          ->with('success', 'Het colloquium is geweigerd. Het colloquium is nu niet (meer) voor iedereen zichtbaar in het overzicht.');
     }
 
 	/**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  Colloquium $colloquium
-	 *
+     * @param  UpdateRequest $request
      * @return \Illuminate\Http\Response
      */
     public function update(Colloquium $colloquium, UpdateRequest $request)
     {
-		$colloquium->fill($request->all())
+		$colloquium
+            ->fill($request->all())
 			->save();
 
 		return redirect()
 			->route('colloquia.show', $colloquium->id)
-			->with('success', 'The colloquium has been edited.');
+			->with('success', 'Het colloquium is bewerkt. Dit wordt ook zichtbaar in het overzicht.');
     }
 }
