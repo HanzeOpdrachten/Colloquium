@@ -53,12 +53,14 @@ gulp.task('compile-css', function() {
   // .pipe(cssnano())
   // Destination name.
   .pipe(rename('theme.min.css'))
+  .pipe(rename('login.css'))
   // Write CSS to output file.
   .pipe(gulp.dest('public/css/'))
   // Browsersync CSS injecting.
   // .pipe(browserSync.stream())
   // Notify.
-  .pipe(notifySuccess('Compiled "theme.min.css"'));
+  .pipe(notifySuccess('Compiled "theme.min.css"')
+  .pipe(notifySuccess('Compiled "login.css"'));
 });
 
 gulp.task('default', function() {
