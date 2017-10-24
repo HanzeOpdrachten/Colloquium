@@ -78,7 +78,11 @@
 </div>
 <div class="form-group">
     <label for="date">Date</label>
-    <input class="form__input {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date" name="date" id="date" value="{{ old('date') ?: $colloquium->start_date->format('Y-m-d') }}">
+    @if ($colloquium->start_date)
+        <input class="form__input {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date" name="date" id="date" value="{{ $colloquium->start_date->format('Y-m-d') }}">
+    @else
+        <input class="form__input {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date" name="date" id="date" value="{{ old('date') }}">
+    @endif
     @if ($errors->has('date'))
         <div class="invalid-feedback">
             {{ $errors->first('date') }}
@@ -88,7 +92,11 @@
 <div class="form-group">
     <div class="column column--half">
         <label for="start_time">Start time</label>
-        <input class="form__input {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="time" name="start_time" value="{{ old('start_time') ?: $colloquium->start_date->format('H:i') }}">
+        @if ($colloquium->start_date)
+            <input class="form__input {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="time" name="start_time" value="{{ $colloquium->start_date->format('H:i') }}">
+        @else
+            <input class="form__input {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="time" name="start_time" value="{{ old('start_time') }}">
+        @endif
         @if ($errors->has('start_time'))
             <div class="invalid-feedback">
                 {{ $errors->first('start_time') }}
@@ -97,7 +105,11 @@
     </div>
     <div class="column column--half">
         <label for="end_time">End</label>
-        <input class="form__input {{ $errors->has('end_time') ? 'is-invalid' : '' }}" type="time" name="end_time" id="end-time" value="{{ old('end_time') ?: $colloquium->end_date->format('H:i') }}">
+        @if ($colloquium->end_date)
+            <input class="form__input {{ $errors->has('end_time') ? 'is-invalid' : '' }}" type="time" name="end_time" id="end-time" value="{{ $colloquium->end_date->format('H:i') }}">
+        @else
+            <input class="form__input {{ $errors->has('end_time') ? 'is-invalid' : '' }}" type="time" name="end_time" id="end-time" value="{{ old('end_time') }}">
+        @endif
         @if ($errors->has('end_time'))
             <div class="invalid-feedback">
                 {{ $errors->first('end_time') }}

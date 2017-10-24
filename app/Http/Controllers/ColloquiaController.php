@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\Colloquium\StatusUpdated;
 use App\Training;
 use App\Colloquium;
 use App\Notifications\Colloquium\Status;
@@ -115,8 +116,17 @@ class ColloquiaController extends Controller
     public function updateRequest(StoreRequest $request, $token)
     {
         $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
-        $colloquium->status = Colloquium::AWAITING;
+
+        $attributes = $request->all();
+        $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
+        $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
+        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+        $attributes['status'] = Colloquium::AWAITING;
+
+        $colloquium->fill($attributes);
         $colloquium->save();
+        $colloquium->notify(new StatusUpdated($colloquium));
 
         return redirect()
             ->back()
