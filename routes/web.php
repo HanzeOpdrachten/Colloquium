@@ -14,6 +14,12 @@
 /* Routes for the authentication system. */
 Auth::routes();
 
+Route::get('/mailable', function() {
+    $colloquium = \App\Colloquium::find(1);
+
+    $colloquium->notify(new \App\Notifications\Colloquium\StatusUpdated($colloquium));
+});
+
 /*
  * Homepage
  */

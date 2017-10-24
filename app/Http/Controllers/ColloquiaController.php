@@ -105,11 +105,22 @@ class ColloquiaController extends Controller
         return view('colloquia.editRequest', compact('colloquium', 'trainings'));
     }
 
+    /**
+     * Update the requested colloquium.
+     *
+     * @param StoreRequest $request
+     * @param $token
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateRequest(StoreRequest $request, $token)
     {
         $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
+        $colloquium->status = Colloquium::AWAITING;
+        $colloquium->save();
 
-        dd($colloquium);
+        return redirect()
+            ->back()
+            ->with('success', 'The details of this colloquium are submitted and waiting for evaluation. Keep an eye on your mailbox.');
     }
 
     /**
