@@ -34,23 +34,25 @@
                     </div>
                 @endif
             </div>
-            <div class="form-group">
-                <label for="role">Role</label>
-                <select class="form__input {{ $errors->has('role') ? 'is-invalid' : '' }}" name="role">
-                    @foreach($roles as $key => $name)
-                        @if ($user->role == $key)
-                            <option value="{{ $key }}" selected>{{ $name }}</option>
-                        @else
-                            <option value="{{ $key }}">{{ $name }}</option>
-                        @endif
-                    @endforeach
-                </select>
-                @if ($errors->has('role'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('role') }}
-                    </div>
-                @endif
-            </div>
+            @can('updateRole', $user)
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form__input {{ $errors->has('role') ? 'is-invalid' : '' }}" name="role">
+                        @foreach($roles as $key => $name)
+                            @if ($user->role == $key)
+                                <option value="{{ $key }}" selected>{{ $name }}</option>
+                            @else
+                                <option value="{{ $key }}">{{ $name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    @if ($errors->has('role'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('role') }}
+                        </div>
+                    @endif
+                </div>
+            @endcan
             <div class="form-group">
                 <div class="float-right">
                     <button type="submit" class="button button--primary">Save</button>

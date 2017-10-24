@@ -48,6 +48,18 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user may update a user's role.
+     *
+     * @param User $user
+     * @param User $target
+     * @return bool
+     */
+    public function updateRole(User $user, User $target)
+    {
+        return ($user->id != $target->id);
+    }
+
+    /**
      * Determine whether the user may delete an existing user.
      *
      * @param User $user
