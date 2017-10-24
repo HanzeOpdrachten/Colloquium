@@ -1,10 +1,19 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+  @include('components.breadcrumbs', [
+    'crumbs' => [
+      'Home' => route('home'),
+      'Users' => '#'
+    ]
+  ])
+@endsection
+
 @section('content')
     <div class="column column--whole">
         @include('layouts.alerts')
 
-        <a href="{{ route('users.create') }}" class="button button--primary button--right-float">Add user</a>
+        <a href="{{ route('users.create') }}" class="button button--secondary button--right-float">Add user</a>
     </div>
 
     <div class="column column--whole">

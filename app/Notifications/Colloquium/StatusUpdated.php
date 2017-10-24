@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Status extends Notification
+class StatusUpdated extends Notification
 {
     use Queueable;
 
@@ -41,11 +41,11 @@ class Status extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Your colloquium is being evaluated.')
+                    ->subject('De status of your colloquium has been changed.')
                     ->greeting("Hello {$notifiable->speaker}")
-                    ->line("You're receiving this e-mail because we're evaluating your colloquium.")
-                    ->line("You can view and edit your item at any given time. Feel free to check it out using the button below.")
-                    ->action('View my colloquium', route('colloquia.request.edit', $notifiable->token))
+                    ->line("You're receiving this e-mail because the status of your colloquium has been changed.")
+                    ->line("To view the status and details of your item, please click the button below.")
+                    ->action('View your item', route('colloquia.request.edit', $notifiable->token))
                     ->line('Thank you for using our application!');
     }
 

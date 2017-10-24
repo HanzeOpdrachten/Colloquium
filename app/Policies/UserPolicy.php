@@ -17,11 +17,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        if ($user->isAdmin()) {
-            return true;
-        }
-
-        return false;
+        return ($user->isAdmin());
     }
 
     /**
@@ -32,11 +28,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        if ($user->isAdmin()) {
-            return true;
-        }
-
-        return false;
+        return ($user->isAdmin());
     }
 
     /**
@@ -48,13 +40,23 @@ class UserPolicy
      */
     public function update(User $user, User $target)
     {
-        if ($user->id == $target->id) { // A user may always update itself.
+        if ($user->id == $target->id) {
             return true;
-        } elseif ($user->isAdmin()) {
-            return true;
-        } else {
-            return false;
         }
+
+        return ($user->isAdmin());
+    }
+
+    /**
+     * Determine whether the user may update a user's role.
+     *
+     * @param User $user
+     * @param User $target
+     * @return bool
+     */
+    public function updateRole(User $user, User $target)
+    {
+        return ($user->id != $target->id);
     }
 
     /**
@@ -66,12 +68,10 @@ class UserPolicy
      */
     public function delete(User $user, User $target)
     {
-        if ($user->id == $target->id) { // A user cannot delete itself.
-            return false;
-        } elseif ($user->isAdmin()) {
-            return true;
-        } else {
+        if ($user->id == $target->id) {
             return false;
         }
+
+        return ($user->isAdmin());
     }
 }

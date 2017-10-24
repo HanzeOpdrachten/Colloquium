@@ -1,15 +1,5 @@
 @extends('layouts.app')
 
-@section('breadcrumbs')
-  @include('components.breadcrumbs', [
-    'crumbs' => [
-      'Home' => route('home'),
-      'Colloquia' => route('colloquia.index'),
-      'Add colloquia' => '#'
-    ]
-  ])
-@endsection
-
 @section('content')
     <div class="column column--whole">
         @include('layouts.alerts')
@@ -17,7 +7,7 @@
 
     <div class="column column--whole">
         <div class="row">
-            <form method="post" class="form" action="{{ route('colloquia.store') }}">
+            <form method="post" class="form" action="{{ route('colloquia.request.store') }}">
                 @include('colloquia.form')
             </form>
         </div>

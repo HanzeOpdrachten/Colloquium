@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\Colloquium\StatusUpdated;
 use App\Training;
 use App\Colloquium;
 use App\Notifications\Colloquium\Status;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
+use Carbon\Carbon;
 
 class ColloquiaController extends Controller
 {
@@ -36,32 +38,58 @@ class ColloquiaController extends Controller
     /**
      * Display the form for creation.
      *
+     * @param Colloquium $colloquium
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Colloquium $colloquium)
     {
         $this->authorize('create', Colloquium::class);
 
         $trainings = Training::all();
         $statuses = [
-            Colloquium::AWAITING => 'Wachten op goedkeuring',
-            Colloquium::ACCEPTED => 'Goedgekeurd',
-            Colloquium::DECLINED => 'Geweigerd',
+            Colloquium::AWAITING => 'Waiting for acceptance',
+            Colloquium::ACCEPTED => 'Accepteed',
+            Colloquium::DECLINED => 'Declined',
+            Colloquium::CANCELED => 'Canceled',
         ];
 
-        return view('colloquia.create', compact('trainings', 'statuses'));
+        return view('colloquia.create', compact('colloquium', 'trainings', 'statuses'));
     }
 
     /**
      * Display the form requesting a colloquium.
      *
+     * @param Colloquium $colloquium
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function request()
+    public function createRequest(Colloquium $colloquium)
     {
         $trainings = Training::all();
 
-        return view('colloquia.create', compact('trainings'));
+        return view('colloquia.request', compact('colloquium', 'trainings'));
+    }
+
+    /**
+     * Store a requested colloquium for review en send en e-mail to the speaker.
+     *
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeRequest(StoreRequest $request)
+    {
+        $attributes = $request->all();
+        $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
+        $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
+        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+
+        $colloquium = Colloquium::create($attributes);
+        $colloquium->setToken();
+        $colloquium->notify(new Status($colloquium));
+
+        return redirect()
+            ->route('home')
+            ->with('success', 'De colloquium is submitted and is awaiting for a review. We\'ve send you an e-mail with more details.');
     }
 
     /**
@@ -72,18 +100,37 @@ class ColloquiaController extends Controller
      */
     public function editRequest($token)
     {
-        // Find colloquium by token.
-        $colloquium = Colloquium::where('token', '=', $token)->first();
-
-        // Requested colloquium doesn't exist.
-        // Show 404 page.
-        if ($colloquium === null) {
-            return abort(404);
-        }
-
+        $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
         $trainings = Training::all();
 
-        return view('colloquia.edit', compact('colloquium', 'trainings'));
+        return view('colloquia.editRequest', compact('colloquium', 'trainings'));
+    }
+
+    /**
+     * Update the requested colloquium.
+     *
+     * @param StoreRequest $request
+     * @param $token
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateRequest(StoreRequest $request, $token)
+    {
+        $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
+
+        $attributes = $request->all();
+        $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
+        $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
+        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+        $attributes['status'] = Colloquium::AWAITING;
+
+        $colloquium->fill($attributes);
+        $colloquium->save();
+        $colloquium->notify(new StatusUpdated($colloquium));
+
+        return redirect()
+            ->back()
+            ->with('success', 'The details of this colloquium are submitted and waiting for evaluation. Keep an eye on your mailbox.');
     }
 
     /**

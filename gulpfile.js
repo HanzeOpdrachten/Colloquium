@@ -17,7 +17,6 @@ const uglify =              				require('gulp-uglify');
 const concat =              				require('gulp-concat');
 const rename =              				require('gulp-rename');
 
-
 function notifySuccess(message) {
   return notify({
     icon: 'notification.png',
@@ -50,28 +49,18 @@ gulp.task('compile-css', function() {
   // Autoprefix CSS
   .pipe(autoprefixer())
   // Compress CSS.
-  // .pipe(cssnano())
+  .pipe(cssnano())
   // Destination name.
   .pipe(rename('theme.min.css'))
   .pipe(rename('login.css'))
   // Write CSS to output file.
   .pipe(gulp.dest('public/css/'))
-  // Browsersync CSS injecting.
-  // .pipe(browserSync.stream())
   // Notify.
   .pipe(notifySuccess('Compiled "theme.min.css"')
   .pipe(notifySuccess('Compiled "login.css"'));
 });
 
 gulp.task('default', function() {
-  // Initialize Browsersync.
-  // browserSync.init({
-  //   ghostMode: false,
-  //   open: false,
-  //   notify: false,
-  //   proxy: hostName,
-  // });
-
   // Watch SASS-file changes.
   gulp.watch('resources/assets/sass/**/*.sass', ['compile-css']);
 
@@ -82,7 +71,7 @@ gulp.task('default', function() {
 
 gulp.task('compile-js', function() {
   gulp.src(['resources/assets/js/app.js'])
-      .pipe(concat('app.min.js'))
-      .pipe(uglify())
-      .pipe(gulp.dest('public/js/'))
+  .pipe(concat('app.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('public/js/'))
 });

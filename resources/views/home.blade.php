@@ -1,14 +1,22 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+  @include('components.breadcrumbs', [
+    'crumbs' => [
+      'Home' => '#'
+    ]
+  ])
+@endsection
+
 @section('content')
 
   <div class="column column--whole">
-    @auth
-      @if(Auth::user()->isAdmin() || Auth::user()->isPlanner())
-        @include('layouts.alerts')
-        <a href="{{ route('colloquia.create') }}" class="button button--secondary button--right-float">Add colloquium</a>
-      @endif
-    @endauth
+      @include('layouts.alerts')
+      @auth
+        @can('create', \App\Colloquium::class)
+          <a href="{{ route('colloquia.create') }}" class="button button--secondary button--right-float">Add colloquium</a>
+        @endcan
+      @endauth
   </div>
 
   <div class="column column--whole">
