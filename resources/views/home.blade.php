@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+  @include('components.breadcrumbs', [
+    'crumbs' => [
+      'Home' => '#'
+    ]
+  ])
+@endsection
+
 @section('content')
 
   <div class="column column--whole">

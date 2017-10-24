@@ -5,7 +5,7 @@
         'crumbs' => [
             'Home' => route('home'),
             'Users' => route('users.index'),
-            'Edit ' . $user->name => '#'
+            'Edit: ' . $user->name => '#'
         ]
     ])
 @endsection
