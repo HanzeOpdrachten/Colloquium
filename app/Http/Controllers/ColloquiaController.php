@@ -37,9 +37,10 @@ class ColloquiaController extends Controller
     /**
      * Display the form for creation.
      *
+     * @param Colloquium $colloquium
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Colloquium $colloquium)
     {
         $this->authorize('create', Colloquium::class);
 
@@ -51,19 +52,20 @@ class ColloquiaController extends Controller
             Colloquium::CANCELED => 'Canceled',
         ];
 
-        return view('colloquia.create', compact('trainings', 'statuses'));
+        return view('colloquia.create', compact('colloquium', 'trainings', 'statuses'));
     }
 
     /**
      * Display the form requesting a colloquium.
      *
+     * @param Colloquium $colloquium
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function createRequest()
+    public function createRequest(Colloquium $colloquium)
     {
         $trainings = Training::all();
 
-        return view('colloquia.request', compact('trainings'));
+        return view('colloquia.request', compact('colloquium', 'trainings'));
     }
 
     /**
