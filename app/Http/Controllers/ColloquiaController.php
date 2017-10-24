@@ -97,18 +97,17 @@ class ColloquiaController extends Controller
      */
     public function editRequest($token)
     {
-        // Find colloquium by token.
-        $colloquium = Colloquium::where('token', '=', $token)->first();
-
-        // Requested colloquium doesn't exist.
-        // Show 404 page.
-        if ($colloquium === null) {
-            return abort(404);
-        }
-
+        $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
         $trainings = Training::all();
 
-        return view('colloquia.edit', compact('colloquium', 'trainings'));
+        return view('colloquia.editRequest', compact('colloquium', 'trainings'));
+    }
+
+    public function updateRequest(StoreRequest $request, $token)
+    {
+        $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
+
+        dd($colloquium);
     }
 
     /**

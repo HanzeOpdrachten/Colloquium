@@ -26,6 +26,7 @@ Route::get('/tv', 'HomeController@tv')->name('tv');
 Route::get('/colloquia/request', 'ColloquiaController@createRequest')->name('colloquia.request');
 Route::post('/colloquia/request', 'ColloquiaController@storeRequest')->name('colloquia.request.store');
 Route::get('/colloquia/request/{token}/edit', 'ColloquiaController@editRequest')->name('colloquia.request.edit');
+Route::patch('/colloquia/request/{token}', 'ColloquiaController@updateRequest')->name('colloquia.request.update');
 
 /*
  * Secured pages.
