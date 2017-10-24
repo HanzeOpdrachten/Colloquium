@@ -7,6 +7,7 @@ use App\Colloquium;
 use App\Notifications\Colloquium\Status;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
+use Carbon\Carbon;
 
 class ColloquiaController extends Controller
 {
@@ -44,9 +45,10 @@ class ColloquiaController extends Controller
 
         $trainings = Training::all();
         $statuses = [
-            Colloquium::AWAITING => 'Wachten op goedkeuring',
-            Colloquium::ACCEPTED => 'Goedgekeurd',
-            Colloquium::DECLINED => 'Geweigerd',
+            Colloquium::AWAITING => 'Waiting for acceptance',
+            Colloquium::ACCEPTED => 'Accepteed',
+            Colloquium::DECLINED => 'Declined',
+            Colloquium::CANCELED => 'Canceled',
         ];
 
         return view('colloquia.create', compact('trainings', 'statuses'));
@@ -57,11 +59,34 @@ class ColloquiaController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function request()
+    public function createRequest()
     {
         $trainings = Training::all();
 
-        return view('colloquia.create', compact('trainings'));
+        return view('colloquia.request', compact('trainings'));
+    }
+
+    /**
+     * Store a requested colloquium for review en send en e-mail to the speaker.
+     *
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeRequest(StoreRequest $request)
+    {
+        $attributes = $request->all();
+        $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
+        $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
+        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+
+        $colloquium = Colloquium::create($attributes);
+        $colloquium->setToken();
+        $colloquium->notify(new Status($colloquium));
+
+        return redirect()
+            ->route('home')
+            ->with('success', 'De colloquium is submitted and is awaiting for a review. We\'ve send you an e-mail with more details.');
     }
 
     /**

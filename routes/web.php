@@ -23,7 +23,8 @@ Route::get('/tv', 'HomeController@tv')->name('tv');
 /*
  * Colloquia
  */
-Route::get('/colloquia/request', 'ColloquiaController@request')->name('colloquia.request');
+Route::get('/colloquia/request', 'ColloquiaController@createRequest')->name('colloquia.request');
+Route::post('/colloquia/request', 'ColloquiaController@storeRequest')->name('colloquia.request.store');
 Route::get('/colloquia/request/{token}/edit', 'ColloquiaController@editRequest')->name('colloquia.request.edit');
 
 /*

@@ -31,11 +31,23 @@ class Colloquium extends Model
     const CANCELED = 4;
 
     /**
-     * The attributes that are not mass assignable.
+     * The attributes that are fillable.
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'title',
+        'training_id',
+        'start_date',
+        'end_date',
+        'speaker',
+        'location',
+        'description',
+        'status',
+        'language',
+        'email',
+        'token'
+    ];
 
     /**
      * The table associated with the model.

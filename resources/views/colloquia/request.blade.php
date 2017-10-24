@@ -7,7 +7,7 @@
 
     <div class="column column--whole">
         <div class="row">
-            <form method="post" class="form" action="{{ route('colloquia.store') }}">
+            <form method="post" class="form" action="{{ route('colloquia.request.store') }}">
                 @include('colloquia.form')
             </form>
         </div>
