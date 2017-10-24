@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+  @include('components.breadcrumbs', [
+    'crumbs' => [
+      'Home' => route('home'),
+      'Trainings' => '#'
+    ]
+  ])
+@endsection
+
 @section('content')
     <div class="column column--whole">
         <a href="{{ route('trainings.create') }}" class="button button--primary button--right-float">Add training</a>
@@ -36,7 +45,7 @@
             </table>
         </div>
     </div>
-    
+
     <div id="delete" class="modal fade">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

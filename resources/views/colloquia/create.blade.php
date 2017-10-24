@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+  @include('components.breadcrumbs', [
+    'crumbs' => [
+      'Home' => route('home'),
+      'Colloquia' => route('colloquia.index'),
+      'Add colloquia' => '#'
+    ]
+  ])
+@endsection
+
 @section('content')
     <div class="column column--whole">
         @include('layouts.alerts')
