@@ -48,7 +48,7 @@ class ColloquiaController extends Controller
         $trainings = Training::all();
         $statuses = [
             Colloquium::AWAITING => 'Waiting for acceptance',
-            Colloquium::ACCEPTED => 'Accepteed',
+            Colloquium::ACCEPTED => 'Accepted',
             Colloquium::DECLINED => 'Declined',
             Colloquium::CANCELED => 'Canceled',
         ];
@@ -195,9 +195,10 @@ class ColloquiaController extends Controller
 
         $trainings = Training::all();
         $statuses = [
-            Colloquium::AWAITING => 'Wachten op goedkeuring',
-            Colloquium::ACCEPTED => 'Goedgekeurd',
-            Colloquium::DECLINED => 'Geweigerd',
+            Colloquium::AWAITING => 'Waiting for acceptance',
+            Colloquium::ACCEPTED => 'Accepted',
+            Colloquium::DECLINED => 'Declined',
+            Colloquium::CANCELED => 'Canceled',
         ];
 
         return view('colloquia.edit', compact('colloquium', 'trainings', 'statuses'));
