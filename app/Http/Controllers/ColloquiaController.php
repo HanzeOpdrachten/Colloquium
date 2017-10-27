@@ -6,6 +6,7 @@ use App\Notifications\Colloquium\StatusUpdated;
 use App\Training;
 use App\Colloquium;
 use App\Notifications\Colloquium\Status;
+use App\Notifications\Colloquium\Review;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
 use Carbon\Carbon;
@@ -85,6 +86,7 @@ class ColloquiaController extends Controller
 
         $colloquium = Colloquium::create($attributes);
         $colloquium->setToken();
+        $colloquium->planner()->notify(new Review($colloquium));
         $colloquium->notify(new Status($colloquium));
 
         return redirect()
@@ -141,8 +143,8 @@ class ColloquiaController extends Controller
      */
     public function store(StoreRequest $request)
     {
-	$this->authorize('create', Colloquium::class);    
-	    
+	$this->authorize('create', Colloquium::class);
+
         $attributes = $request->all();
         $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
         $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
@@ -150,7 +152,7 @@ class ColloquiaController extends Controller
         $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
 
         $colloquium = Colloquium::create($attributes);
-	    
+
         return redirect()
             ->route('colloquia.index')
             ->with('success', 'De colloquium is has been added.');
