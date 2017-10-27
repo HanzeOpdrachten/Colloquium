@@ -142,45 +142,16 @@ class ColloquiaController extends Controller
     public function store(StoreRequest $request)
     {
         $attributes = $request->all();
-        $attributes['training_id'] = $request->get('training_id');
-
-        $startDate = $request->get('date');
-        $startTime = $request->get('start_time');
-        $endTime = $request->get('end_time');
-        $startDateTime = date('Y-m-d H:i:s', strtotime("$startDate $startTime"));
-        $endDateTime = date('Y-m-d H:i:s', strtotime("$startDate $endTime"));
-
-        $attributes['start_date'] = $startDateTime;
-        $attributes['end_date'] = $endDateTime;
-
-        unset($attributes['start_time']);
-        unset($attributes['end_time']);
-        unset($attributes['training']);
-        unset($attributes['date']);
+        $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
+        $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
+        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
 
         $colloquium = Colloquium::create($attributes);
-
-        // Resync the data from the database because a few attributes are default in de database
-        // but not in Eloquent. So Eloquent will not retrieve them right away.
-        // For that we have to retrieve the record from the database.
-        $colloquium = $colloquium->fresh();
-
-        // Send an e-mail to all planners who are subscribed to the given training.
-        if ($colloquium->status == Colloquium::AWAITING) {
-            // Set a token
-            $colloquium->setToken();
-
-            // Send an e-mail to the speaker
-            $colloquium->notify(new Status($colloquium));
-
-            return redirect()
-                ->route('home')
-                ->with('success', 'Colloquium is aangemaakt en wacht op goedkeuring. Je hebt een e-mail ontvangen met een link waarmee je de status kunt bijhouden.');
-        }
-
+	    
         return redirect()
-                ->route('colloquia.index')
-                ->with('success', 'Colloquium toegevoegd.');
+            ->route('colloquia.index')
+            ->with('success', 'De colloquium is has been added.');
     }
 
     /**
