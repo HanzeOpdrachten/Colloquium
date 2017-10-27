@@ -142,7 +142,7 @@ class ColloquiaController extends Controller
     public function store(StoreRequest $request)
     {
         $attributes = $request->all();
-        $attributes['training_id'] = $request->get('training');
+        $attributes['training_id'] = $request->get('training_id');
 
         $startDate = $request->get('date');
         $startTime = $request->get('start_time');
