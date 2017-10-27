@@ -141,6 +141,8 @@ class ColloquiaController extends Controller
      */
     public function store(StoreRequest $request)
     {
+	$this->authorize('create', Colloquium::class);    
+	    
         $attributes = $request->all();
         $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
         $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
