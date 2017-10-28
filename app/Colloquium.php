@@ -46,7 +46,8 @@ class Colloquium extends Model
         'status',
         'language',
         'email',
-        'token'
+        'token',
+        'changed'
     ];
 
     /**
@@ -160,6 +161,15 @@ class Colloquium extends Model
     public function isCanceled()
     {
         return ($this->attributes['status'] == self::CANCELED);
+    }
+
+    /** Has changed
+     *
+     * @return bool
+     */
+    public function hasChanged()
+    {
+      return ($this->attributes['changed'] == 1);
     }
 
     /**
