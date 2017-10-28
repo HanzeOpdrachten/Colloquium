@@ -14,7 +14,7 @@ class AddChangedColumnToColloquia extends Migration
     public function up()
     {
       Schema::table('colloquia', function(Blueprint $table) {
-          $table->tinyInteger('changed')->default(0);
+          $table->boolean('changed')->default(false);
       });
     }
 

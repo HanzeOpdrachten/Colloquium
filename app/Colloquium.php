@@ -75,6 +75,15 @@ class Colloquium extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'changed' => 'boolean',
+    ];
+
+    /**
      * Reformat the start date attribute.
      *
      * @param $value
