@@ -144,7 +144,7 @@ class ColloquiaController extends Controller
      */
     public function store(StoreRequest $request)
     {
-	$this->authorize('create', Colloquium::class);
+	    $this->authorize('create', Colloquium::class);
 
         $attributes = $request->all();
         $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
@@ -152,7 +152,7 @@ class ColloquiaController extends Controller
         $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
         $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
 
-        $colloquium = Colloquium::create($attributes);
+        Colloquium::create($attributes);
 
         return redirect()
             ->route('colloquia.index')
