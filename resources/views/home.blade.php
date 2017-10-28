@@ -12,11 +12,6 @@
 
   <div class="column column--whole">
       @include('layouts.alerts')
-      @auth
-        @can('create', \App\Colloquium::class)
-          <a href="{{ route('colloquia.create') }}" class="button button--secondary button--right-float">Add colloquium</a>
-        @endcan
-      @endauth
   </div>
 
   <div class="column column--whole">
