@@ -51,7 +51,7 @@ class UsersController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->with('success', 'Gebruiker toegevoegd.');
+            ->with('success', 'The user has been added.');
     }
 
     /**
@@ -84,7 +84,7 @@ class UsersController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->with('success', 'De gebruiker is bijgewerkt.');
+            ->with('success', 'The user has been edited.');
     }
 
     /**
@@ -101,6 +101,6 @@ class UsersController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->with('success', 'De gebruiker is verwijdered.');
+            ->with('success', 'The user has been deleted.');
     }
 }
