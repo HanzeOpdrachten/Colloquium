@@ -49,7 +49,7 @@ class TrainingsController extends Controller
 
         return redirect()
             ->route('trainings.index')
-            ->with('success', 'De opleiding is toegevoegd.');
+            ->with('success', 'The training has been added.');
     }
 
     /**
@@ -77,7 +77,7 @@ class TrainingsController extends Controller
 
         return redirect()
             ->route('trainings.index')
-            ->with('success', 'Opleiding bijgewerkt.');
+            ->with('success', 'The training has been edited.');
     }
 
     /**
@@ -96,7 +96,7 @@ class TrainingsController extends Controller
 
         return redirect()
             ->route('trainings.index')
-            ->with('success', 'Opleiding verwijderd.');
+            ->with('success', 'The training has been deleted.');
     }
 
     /**
