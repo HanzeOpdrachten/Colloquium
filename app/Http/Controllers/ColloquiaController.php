@@ -230,6 +230,6 @@ class ColloquiaController extends Controller
 
 		return redirect()
 			->route('colloquia.show', $colloquium->id)
-      ->with('success', 'The colloquium has been edited. This will now be visible in the overview.');
+            ->with('success', 'The colloquium has been edited. This will now be visible in the overview.');
     }
 }
