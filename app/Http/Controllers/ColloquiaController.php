@@ -125,6 +125,7 @@ class ColloquiaController extends Controller
         $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
         $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
         $attributes['status'] = Colloquium::AWAITING;
+        $attributes['changed'] = 1;
 
         $colloquium->fill($attributes);
         $colloquium->save();
@@ -223,10 +224,10 @@ class ColloquiaController extends Controller
      */
     public function update(Colloquium $colloquium, UpdateRequest $request)
     {
-		$colloquium
-            ->fill($request->all())
-			->save();
-
+		$colloquium->fill($request->all());
+    $colloquium->changed = 1;
+    $colloquium->save();
+    
 		return redirect()
 			->route('colloquia.show', $colloquium->id)
 			->with('success', 'Het colloquium is bewerkt. Dit wordt ook zichtbaar in het overzicht.');
