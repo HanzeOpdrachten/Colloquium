@@ -125,7 +125,7 @@ class ColloquiaController extends Controller
         $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
         $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
         $attributes['status'] = Colloquium::AWAITING;
-        $attributes['changed'] = 1;
+        $attributes['changed'] = ($colloquium->isAccepted()) ? true : false;
 
         $colloquium->fill($attributes);
         $colloquium->save();

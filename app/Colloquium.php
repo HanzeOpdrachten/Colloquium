@@ -172,13 +172,14 @@ class Colloquium extends Model
         return ($this->attributes['status'] == self::CANCELED);
     }
 
-    /** Has changed
+    /**
+     * Has changed
      *
      * @return bool
      */
     public function hasChanged()
     {
-      return ($this->attributes['changed'] == 1);
+      return ($this->attributes['changed'] === true);
     }
 
     /**
