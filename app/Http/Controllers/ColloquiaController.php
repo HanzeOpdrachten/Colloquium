@@ -91,7 +91,7 @@ class ColloquiaController extends Controller
 
         return redirect()
             ->route('home')
-            ->with('success', 'De colloquium is submitted and is awaiting for a review. We\'ve send you an e-mail with more details.');
+            ->with('success', 'The colloquium has been submitted and is awaiting for a review. We\'ve send you an e-mail with more details.');
     }
 
     /**
@@ -156,7 +156,7 @@ class ColloquiaController extends Controller
 
         return redirect()
             ->route('colloquia.index')
-            ->with('success', 'De colloquium is has been added.');
+            ->with('success', 'The colloquium has been added.');
     }
 
     /**
@@ -195,7 +195,7 @@ class ColloquiaController extends Controller
 
         return redirect()
             ->route('colloquia.index')
-            ->with('success', 'Het colloquium is succesvol goedgekeurd. Het colloquium is nu voor iedereen zichtbaar in het overzicht.');
+            ->with('success', 'The colloquium has succesfully been accepted. It will now be visible in the overview for everyone.');
     }
 
     /**
@@ -212,7 +212,7 @@ class ColloquiaController extends Controller
 
       return redirect()
           ->route('colloquia.index')
-          ->with('success', 'Het colloquium is geweigerd. Het colloquium is nu niet (meer) voor iedereen zichtbaar in het overzicht.');
+          ->with('success', 'The colloquium has been rejected. It will not be visible any longer in the overview.');
     }
 
 	/**
@@ -227,9 +227,9 @@ class ColloquiaController extends Controller
 		$colloquium->fill($request->all());
     $colloquium->changed = 1;
     $colloquium->save();
-    
+
 		return redirect()
 			->route('colloquia.show', $colloquium->id)
-			->with('success', 'Het colloquium is bewerkt. Dit wordt ook zichtbaar in het overzicht.');
+      ->with('success', 'The colloquium has been edited. This will now be visible in the overview.');
     }
 }
