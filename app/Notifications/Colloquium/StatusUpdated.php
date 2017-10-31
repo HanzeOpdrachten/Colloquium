@@ -41,7 +41,7 @@ class StatusUpdated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('De status of your colloquium has been changed.')
+                    ->subject('The status of your colloquium has been changed.')
                     ->greeting("Hello {$notifiable->speaker}")
                     ->line("You're receiving this e-mail because the status of your colloquium has been changed.")
                     ->line("To view the status and details of your item, please click the button below.")
