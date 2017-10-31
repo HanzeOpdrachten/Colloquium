@@ -13,7 +13,7 @@
     <div class="column column--whole">
         @auth
             @can('create', \App\Colloquium::class)
-                <a href="{{ route('colloquia.create') }}" class="button button--primary button--right-float">Add colloquium</a>
+                <a href="{{ route('colloquia.create') }}" class="button button--secondary button--right-float">Add colloquium</a>
             @endcan
         @endauth
     </div>
