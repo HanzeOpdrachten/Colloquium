@@ -21,10 +21,13 @@
       </div>
     @endforeach
   </div>
-
-  <div class="column column--one-third column--last">
-        <h1>TV Sub content QR scanner oid?</h1>
+  
+  <div class="box column column--one-third column--last">
+      <h1 class="box__title">QR Code</h1>
+      <p class="box__content"></p>
+      <img width="100%" alt="QR Code" src="http://nl.qr-code-generator.com/phpqrcode/getCode.php?cht=qr&chl={!! route('home') !!}&chs=180x180&choe=UTF-8&chld=L|0">
   </div>
+
 
 
 @endsection
