@@ -52,12 +52,10 @@ gulp.task('compile-css', function() {
   .pipe(cssnano())
   // Destination name.
   .pipe(rename('theme.min.css'))
-  .pipe(rename('login.css'))
   // Write CSS to output file.
   .pipe(gulp.dest('public/css/'))
   // Notify.
-  .pipe(notifySuccess('Compiled "theme.min.css"')
-  .pipe(notifySuccess('Compiled "login.css"'));
+  .pipe(notifySuccess('Compiled "theme.min.css"'));
 });
 
 gulp.task('default', function() {
