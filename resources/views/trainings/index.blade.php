@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="column column--whole">
-        <a href="{{ route('trainings.create') }}" class="button button--primary button--right-float">Add training</a>
+        <a href="{{ route('trainings.create') }}" class="button button--secondary button--right-float">Add training</a>
     </div>
     <div class="column column--whole">
         <div class="table">
@@ -30,13 +30,13 @@
                             <td>{{ $training->name }}</td>
                             <td>{{ $training->color }}</td>
                             <td>
-                                <a href="{{ route('trainings.edit', $training->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('trainings.edit', $training->id) }}" class="button button--no-margin button--small button--info">Edit</a>
                                 @if (Auth::user()->isSubscribed($training))
-                                    <a href="{{ route('trainings.subscribe', $training->id) }}" class="btn btn-success subscribe">Subscribe</a>
+                                    <a href="{{ route('trainings.subscribe', $training->id) }}" class="button button--success subscribe">Subscribe</a>
                                 @else
-                                    <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="btn btn-secondary subscribe">Subscribed</a>
+                                    <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="button button--no-margin button--small button--secondary subscribe">Subscribed</a>
                                 @endif
-                                <a data-href="{{ route('trainings.destroy', $training->id) }}" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</a>
+                                <a data-href="{{ route('trainings.destroy', $training->id) }}" class="button button--no-margin button--small button--danger" data-toggle="modal" data-target="#delete">Delete</a>
                             </td>
                         </tr>
                         @endif
@@ -59,9 +59,9 @@
                     <form method="post" action="">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button type="submit" class="btn btn-primary">Delete training</button>
+                        <button type="submit" class="button button--no-margin button--small button--primary">Delete training</button>
                     </form>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="button button--no-margin button--small button--secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
