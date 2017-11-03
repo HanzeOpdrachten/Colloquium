@@ -11,16 +11,15 @@
 @endsection
 
 @section('content')
-    <div class="column column--whole">
-        @include('layouts.alerts')
-    </div>
 
-    <div class="column column--whole">
-        <div class="row">
-            <form method="post" class="form" action="{{ route('colloquia.store') }}">
-                @include('colloquia.form')
-            </form>
-        </div>
+  @include('layouts.alerts')
+
+  <div class="box column column--whole">
+    <div class="row">
+      <form method="post" class="form" action="{{ route('colloquia.store') }}">
+        @include('colloquia.form')
+      </form>
     </div>
-    @include('layouts.footer')
+  </div>
+  @include('layouts.footer')
 @endsection

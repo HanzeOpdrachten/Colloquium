@@ -1,5 +1,6 @@
 /* -- Material Design Table style -------------- */
 .table
+  border-collapse: collapse
   overflow-x: auto
   width: 100%
   max-width: 100%
@@ -12,6 +13,10 @@
     width: 100%
 
   tr
+    &:last-of-type
+      th, td
+        border: none
+
     th
       font-weight: bold
       color: #000
