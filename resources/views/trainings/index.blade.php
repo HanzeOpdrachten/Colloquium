@@ -28,7 +28,7 @@
                         @if($training->id != 1)
                         <tr>
                             <td>{{ $training->name }}</td>
-                            <td>{{ $training->color }}</td>
+                            <td style="color: {{ $training->color }}">{{ $training->color }}</td>
                             <td>
                                 <a href="{{ route('trainings.edit', $training->id) }}" class="button button--no-margin button--small button--info">Edit</a>
                                 @if (Auth::user()->isSubscribed($training))
