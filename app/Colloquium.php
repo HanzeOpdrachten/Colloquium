@@ -193,12 +193,18 @@ class Colloquium extends Model
     }
 
     /**
-     * Has one planner.
+     * Belongs to many planners.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function planner()
+    public function planners()
     {
-        return $this->belongsTo(User::class, 'planner_id');
+        return $this->belongsToMany(
+            User::class,
+            'mail_subscriptions',
+            'training_id',
+            'user_id',
+            'id'
+            );
     }
 }

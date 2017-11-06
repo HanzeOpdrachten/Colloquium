@@ -10,6 +10,7 @@ use App\Notifications\Colloquium\Review;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 class ColloquiaController extends Controller
 {
@@ -79,14 +80,17 @@ class ColloquiaController extends Controller
     public function storeRequest(StoreRequest $request)
     {
         $attributes = $request->all();
-        $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
-        $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
-        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
-        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+
+        $attributes['start_date']   = $attributes['date'].' '.$attributes['start_time'].':00';
+        $attributes['end_date']     = $attributes['date'].' '.$attributes['end_time'].':00';
+        $attributes['start_date']   = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date']     = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['end_date'])->toDateTimeString();
 
         $colloquium = Colloquium::create($attributes);
         $colloquium->setToken();
-        $colloquium->planner()->notify(new Review($colloquium));
+
+        Notification::send($colloquium->planners, new Review($colloquium));
+
         $colloquium->notify(new Status($colloquium));
 
         return redirect()
@@ -149,8 +153,8 @@ class ColloquiaController extends Controller
         $attributes = $request->all();
         $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
         $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
-        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
-        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['end_date'])->toDateTimeString();
 
         Colloquium::create($attributes);
 
@@ -225,8 +229,8 @@ class ColloquiaController extends Controller
     public function update(Colloquium $colloquium, UpdateRequest $request)
     {
 		$colloquium->fill($request->all());
-    $colloquium->changed = 1;
-    $colloquium->save();
+        $colloquium->changed = true;
+        $colloquium->save();
 
 		return redirect()
 			->route('colloquia.show', $colloquium->id)
