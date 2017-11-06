@@ -62,7 +62,7 @@ class Colloquium extends Model
      *
      * @var bool
      */
-    public $timestamps  = false;
+    public $timestamps = true;
 
     /**
      * The attributes that should be mutated to dates.
