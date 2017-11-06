@@ -4,6 +4,7 @@
 
     <div class="navigation__logo">
       <a href="/">
+          <img src="/img/colloquium.svg">
       </a>
     </div>
 
