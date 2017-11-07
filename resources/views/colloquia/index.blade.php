@@ -69,14 +69,62 @@
                   @elseif ($colloquium->isAccepted())
                     <a href="{{ route('colloquia.decline', $colloquium->id) }}" class="button button--danger button--small">Decline</a>
                   @endif
-                  <a href="#" class="button button--danger button--small">Delete</a>
+                  <a data-href="{{ route('colloquia.destroy', $colloquium->id) }}" class="button button--small button--danger" data-toggle="modal" data-target="#delete">Delete</a>
                 </td>
               </tr>
-            @endforeach
-          </tbody>
-        </table>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="delete" class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Colloquium</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="button button--no-margin button--small button--primary">Delete Colloquium</button>
+                    </form>
+                    <button type="button" class="button button--no-margin button--small button--secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
       </div>
     </div>
+    <form id="colloquium" method="post" action="">
+        {{ csrf_field() }}
+        {{ method_field('PATCH') }}
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+    </form>
+    @push('scripts')
+      <script>
+          $('.subscribe').click(function(e) {
+              e.preventDefault();
+
+              var btn = $(this);
+              var href = btn.attr('href');
+              var subscription = $('#colloquium');
+
+              colloquium.attr('action', href);
+              colloquium.submit();
+          });
+          $('#delete').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget); // Button that triggered the modal
+              var href = button.data('href'); // Extract info from data-* attributes
+              // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+              // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+              var modal = $(this);
+              modal.find('form').attr('action', href);
+          })
+      </script>
+    @endpush
   @else
     <p>There are no colloquia found.</p>
   @endif

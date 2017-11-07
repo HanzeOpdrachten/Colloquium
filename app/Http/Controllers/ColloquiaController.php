@@ -236,4 +236,18 @@ class ColloquiaController extends Controller
 			->route('colloquia.show', $colloquium->id)
             ->with('success', 'The colloquium has been edited. This will now be visible in the overview.');
     }
+
+    /**
+     * delete specified resource
+     *
+     *
+     *
+     */
+    public function destroy(Colloquium $colloquium)
+    {
+        $colloquium->delete();
+        return redirect()
+            ->route('colloquia.index')
+            ->with('success', 'The colloquium has been removed.');
+    }
 }
