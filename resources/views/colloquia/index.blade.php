@@ -43,15 +43,15 @@
           </thead>
           <tbody>
             @foreach($colloquia as $colloquium)
-              <tr class="clickable-colloquium" data-link="{{ route('colloquia.show', $colloquium->id) }}" title="View a more detailed page for {{ $colloquium->title }}">
-                <td>
+              <tr data-link="{{ route('colloquia.show', $colloquium->id) }}" title="View a more detailed page for {{ $colloquium->title }}">
+                <td class="clickable-colloquium">
                   <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
                 </td>
-                <td>{{ $colloquium->title }}</td>
-                <td>{{ $colloquium->speaker }}</td>
-                <td>{{ $colloquium->location }}</td>
-                <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
-                <td>
+                <td class="clickable-colloquium">{{ $colloquium->title }}</td>
+                <td class="clickable-colloquium">{{ $colloquium->speaker }}</td>
+                <td class="clickable-colloquium">{{ $colloquium->location }}</td>
+                <td class="clickable-colloquium">{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>
+                <td class="clickable-colloquium">
                   @if ($colloquium->isAwaiting())
                     <span style="color: orangered;">Awaiting</span>
                   @elseif ($colloquium->isAccepted())

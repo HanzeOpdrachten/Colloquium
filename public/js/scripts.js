@@ -26,7 +26,7 @@ jQuery(function(){
     checkRemoveClass('.menu', 'menu--active');
   });
   jQuery('.clickable-colloquium').click(function() {
-    var link = jQuery(this).data('link');
+    var link = jQuery(this).parent().data('link');
     window.location.href = link;
   });
 
