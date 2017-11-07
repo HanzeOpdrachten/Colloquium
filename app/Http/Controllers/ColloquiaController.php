@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\Colloquium\StatusUpdated;
 use App\Training;
+use Carbon\Carbon;
 use App\Colloquium;
 use App\Notifications\Colloquium\Status;
 use App\Notifications\Colloquium\Review;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Notification;
 
 class ColloquiaController extends Controller
 {
@@ -89,7 +88,8 @@ class ColloquiaController extends Controller
         $colloquium = Colloquium::create($attributes);
         $colloquium->setToken();
 
-        Notification::send($colloquium->planners, new Review($colloquium));
+        dd($colloquium->planners);
+        Notification::send($colloquium->planners, new Status($colloquium));
 
         $colloquium->notify(new Status($colloquium));
 
@@ -133,7 +133,7 @@ class ColloquiaController extends Controller
 
         $colloquium->fill($attributes);
         $colloquium->save();
-        $colloquium->notify(new StatusUpdated($colloquium));
+        $colloquium->notify(new Status($colloquium));
 
         return redirect()
             ->back()
@@ -206,10 +206,9 @@ class ColloquiaController extends Controller
      * Decline a colloquium.
      *
      * @param Colloquium $colloquium
-     * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function decline(Colloquium $colloquium, UpdateRequest $request)
+    public function decline(Colloquium $colloquium)
     {
       $colloquium->status = Colloquium::DECLINED;
       $colloquium->save();
@@ -238,14 +237,15 @@ class ColloquiaController extends Controller
     }
 
     /**
-     * delete specified resource
+     * Delete specified resource.
      *
-     *
-     *
+     * @param Colloquium $colloquium
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Colloquium $colloquium)
     {
         $colloquium->delete();
+
         return redirect()
             ->route('colloquia.index')
             ->with('success', 'The colloquium has been removed.');

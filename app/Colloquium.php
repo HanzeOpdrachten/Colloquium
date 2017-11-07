@@ -204,7 +204,7 @@ class Colloquium extends Model
             'mail_subscriptions',
             'training_id',
             'user_id',
-            'id'
-            );
+            'training_id'
+        );
     }
 }
