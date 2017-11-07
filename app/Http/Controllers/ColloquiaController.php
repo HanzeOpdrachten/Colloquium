@@ -88,8 +88,7 @@ class ColloquiaController extends Controller
         $colloquium = Colloquium::create($attributes);
         $colloquium->setToken();
 
-        dd($colloquium->planners);
-        Notification::send($colloquium->planners, new Status($colloquium));
+        Notification::send($colloquium->planners, new Review($colloquium));
 
         $colloquium->notify(new Status($colloquium));
 
@@ -108,8 +107,14 @@ class ColloquiaController extends Controller
     {
         $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
         $trainings = Training::all();
+        $statuses = [
+            Colloquium::AWAITING => 'Waiting for acceptance',
+            Colloquium::ACCEPTED => 'Accepted',
+            Colloquium::DECLINED => 'Declined',
+            Colloquium::CANCELED => 'Canceled',
+        ];
 
-        return view('colloquia.editRequest', compact('colloquium', 'trainings'));
+        return view('colloquia.editRequest', compact('colloquium', 'trainings', 'statuses'));
     }
 
     /**
