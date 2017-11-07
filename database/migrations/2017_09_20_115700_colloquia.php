@@ -25,6 +25,7 @@ class Colloquia extends Migration
             $table->tinyInteger('status')->default(\App\Colloquium::AWAITING);
             $table->string('language', 80);
             $table->foreign('training_id')->references('id')->on('trainings')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ColloquiaController;
 use App\Colloquium;
+use App\Training;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -17,6 +19,7 @@ class HomeController extends Controller
     {
         $colloquia = Colloquium::oldest('start_date')
             ->where('status', '=', Colloquium::ACCEPTED)
+            ->where('start_date','>',Carbon::today())
             ->get();
 
         return view('home', compact('colloquia'));
@@ -27,11 +30,19 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tv()
+    public function tv(Training $training = null)
     {
-        $colloquia = Colloquium::oldest('start_date')
+        if (isset($training)) {
+          $colloquia = $training->colloquia()
             ->where('status', '=', Colloquium::ACCEPTED)
+            ->where('start_date','>',Carbon::today())
             ->get();
+        } else {
+          $colloquia = Colloquium::oldest('start_date')
+              ->where('status', '=', Colloquium::ACCEPTED)
+              ->where('start_date','>',Carbon::today())
+              ->get();
+        }
 
         return view('tv', compact('colloquia'));
     }

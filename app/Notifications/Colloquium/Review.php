@@ -41,11 +41,10 @@ class Review extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                ->subject('There is a new colloquium that needs to be reviewed')
-                ->greeting('Hello :name', ['name' => $notifiable->planner])
-                ->line('There is a new colloquium that needs to be reviewed!')
-                ->action('review the colloquium', route('home'))
-                ->line('Thank you for using our application!');
+                ->subject('There is a new colloquium that needs to be reviewed.')
+                ->greeting("Hello {$notifiable->name}")
+                ->line('There is a new colloquium that needs to be reviewed.')
+                ->action('Review the colloquium', route('colloquia.index'));
     }
 
     /**

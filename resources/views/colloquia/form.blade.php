@@ -60,7 +60,7 @@
 </div>
 <div class="form-group">
     <label for="description">Short description</label>
-    <textarea class="form__input {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" style="min-height:100px; max-height:200px;">{{ old('description') ?: $colloquium->description }}</textarea>
+    <textarea class="form__textarea {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" style="min-height:100px; max-height:200px;">{{ old('description') ?: $colloquium->description }}</textarea>
     @if ($errors->has('description'))
         <div class="invalid-feedback">
             {{ $errors->first('description') }}

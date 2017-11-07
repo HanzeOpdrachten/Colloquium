@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit: ' . $colloquium->title)
+
 @section('breadcrumbs')
   @include('components.breadcrumbs', [
     'crumbs' => [
