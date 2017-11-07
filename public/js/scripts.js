@@ -25,6 +25,10 @@ jQuery(function(){
     checkRemoveClass('.navigation', 'navigation--active');
     checkRemoveClass('.menu', 'menu--active');
   });
+  jQuery('.clickable-colloquium').click(function() {
+    var link = jQuery(this).data('link');
+    window.location.href = link;
+  });
 
   function checkRemoveClass(targetEl, targetClass) {
     if (jQuery(targetEl).hasClass(targetClass)) {
