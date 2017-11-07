@@ -43,11 +43,11 @@
           </thead>
           <tbody>
             @foreach($colloquia as $colloquium)
-              <tr>
+              <tr class="clickable-colloquium" data-link="{{ route('colloquia.show', $colloquium->id) }}" title="View a more detailed page for {{ $colloquium->title }}">
                 <td>
                   <span style="color: {{ $colloquium->training->color }};">{{ $colloquium->training->name }}</span>
                 </td>
-                <td><a href="{{ route('colloquia.show', $colloquium->id) }}" title="View a more detailed page for {{ $colloquium->title }}">{{ $colloquium->title }}</a></td>
+                <td>{{ $colloquium->title }}</td>
                 <td>{{ $colloquium->speaker }}</td>
                 <td>{{ $colloquium->location }}</td>
                 <td>{{ $colloquium->start_date->format('d-m-Y H:s') }}</td>

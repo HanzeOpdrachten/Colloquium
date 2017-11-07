@@ -26,9 +26,9 @@ class ColloquiumPolicy
      *
      * @return bool
      */
-    public function view()
+    public function view(User $user)
     {
-        return true;
+        return ($user->isPlanner() || $user->isAdmin());
     }
 
     /**
