@@ -18,7 +18,7 @@ Auth::routes();
  * Homepage
  */
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/tv', 'HomeController@tv')->name('tv');
+Route::get('/tv/{training?}', 'HomeController@tv')->name('tv');
 
 /*
  * Colloquia
