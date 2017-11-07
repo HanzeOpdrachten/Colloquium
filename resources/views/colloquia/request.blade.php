@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Request')
+
 @section('breadcrumbs')
   @include('components.breadcrumbs', [
     'crumbs' => [

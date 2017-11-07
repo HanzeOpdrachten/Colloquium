@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit: ' . $user->name)
+
 @section('breadcrumbs')
   @include('components.breadcrumbs', [
     'crumbs' => [
