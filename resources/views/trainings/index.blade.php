@@ -34,7 +34,7 @@
                             <td>
                                 <a href="{{ route('trainings.edit', $training->id) }}" class="button button--no-margin button--small button--info">Edit</a>
                                 @if (Auth::user()->isSubscribed($training))
-                                    <a href="{{ route('trainings.subscribe', $training->id) }}" class="button button--success subscribe">Subscribe</a>
+                                    <a href="{{ route('trainings.subscribe', $training->id) }}" class="button button--success button--small subscribe">Subscribe</a>
                                 @else
                                     <a href="{{ route('trainings.unsubscribe', $training->id) }}" class="button button--no-margin button--small button--secondary subscribe">Subscribed</a>
                                 @endif
