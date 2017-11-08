@@ -22,7 +22,7 @@
       </li>
       @guest
         <li class="menu__item">
-          <a class="menu__link" href="{{ route('colloquia.request') }}">Add colloquium</a>
+          <a class="menu__link" href="{{ route('colloquia.request') }}">Request colloquium</a>
         </li>
         <li class="menu__item">
           <a class="menu__link" href="{{ route('login') }}">Log in</a>
