@@ -4,7 +4,7 @@
 
     <div class="navigation__logo">
       <a href="/">
-          <img src="/img/colloquium.svg">
+          <img src="{{ asset('/img/colloquium.svg') }}">
       </a>
     </div>
 
