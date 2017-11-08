@@ -53,17 +53,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Delete training</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this training?
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button type="submit" class="button button--no-margin button--small button--primary">Delete training</button>
+                        <button type="submit" class="button button--no-margin button--primary">Delete training</button>
                     </form>
-                    <button type="button" class="button button--no-margin button--small button--secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="button button--no-margin button--secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
