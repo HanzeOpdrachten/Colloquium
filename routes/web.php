@@ -18,7 +18,7 @@ Auth::routes();
  * Homepage
  */
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/tv', 'HomeController@tv')->name('tv');
+Route::get('/tv/{training?}', 'HomeController@tv')->name('tv');
 
 /*
  * Colloquia
@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/colloquia/decline/{colloquium}', 'ColloquiaController@decline')->name('colloquia.decline');
     Route::get('/colloquia/{colloquium}/edit', 'ColloquiaController@edit')->name('colloquia.edit');
     Route::patch('/colloquia/{colloquium}', 'ColloquiaController@update')->name('colloquia.update');
+    Route::delete('/colloquia/{colloquium}', 'ColloquiaController@destroy')->name('colloquia.destroy');
 
     /*
      * Users

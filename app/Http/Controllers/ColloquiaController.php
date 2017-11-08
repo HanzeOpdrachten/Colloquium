@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\Colloquium\StatusUpdated;
 use App\Training;
+use Carbon\Carbon;
 use App\Colloquium;
 use App\Notifications\Colloquium\Status;
 use App\Notifications\Colloquium\Review;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\Colloquium\StoreRequest;
 use App\Http\Requests\Colloquium\UpdateRequest;
-use Carbon\Carbon;
 
 class ColloquiaController extends Controller
 {
@@ -79,14 +79,17 @@ class ColloquiaController extends Controller
     public function storeRequest(StoreRequest $request)
     {
         $attributes = $request->all();
-        $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
-        $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
-        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
-        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+
+        $attributes['start_date']   = $attributes['date'].' '.$attributes['start_time'].':00';
+        $attributes['end_date']     = $attributes['date'].' '.$attributes['end_time'].':00';
+        $attributes['start_date']   = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date']     = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['end_date'])->toDateTimeString();
 
         $colloquium = Colloquium::create($attributes);
         $colloquium->setToken();
-        $colloquium->planner()->notify(new Review($colloquium));
+
+        Notification::send($colloquium->planners, new Review($colloquium));
+
         $colloquium->notify(new Status($colloquium));
 
         return redirect()
@@ -104,8 +107,14 @@ class ColloquiaController extends Controller
     {
         $colloquium = Colloquium::where('token', '=', $token)->firstOrFail();
         $trainings = Training::all();
+        $statuses = [
+            Colloquium::AWAITING => 'Waiting for acceptance',
+            Colloquium::ACCEPTED => 'Accepted',
+            Colloquium::DECLINED => 'Declined',
+            Colloquium::CANCELED => 'Canceled',
+        ];
 
-        return view('colloquia.editRequest', compact('colloquium', 'trainings'));
+        return view('colloquia.editRequest', compact('colloquium', 'trainings', 'statuses'));
     }
 
     /**
@@ -129,7 +138,7 @@ class ColloquiaController extends Controller
 
         $colloquium->fill($attributes);
         $colloquium->save();
-        $colloquium->notify(new StatusUpdated($colloquium));
+        $colloquium->notify(new Status($colloquium));
 
         return redirect()
             ->back()
@@ -149,8 +158,8 @@ class ColloquiaController extends Controller
         $attributes = $request->all();
         $attributes['start_date'] = $attributes['date'].' '.$attributes['start_time'];
         $attributes['end_date'] = $attributes['date'].' '.$attributes['end_time'];
-        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['start_date'])->toDateTimeString();
-        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i', $attributes['end_date'])->toDateTimeString();
+        $attributes['start_date'] = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['start_date'])->toDateTimeString();
+        $attributes['end_date'] = Carbon::createFromFormat('Y-m-d H:i:s', $attributes['end_date'])->toDateTimeString();
 
         Colloquium::create($attributes);
 
@@ -202,10 +211,9 @@ class ColloquiaController extends Controller
      * Decline a colloquium.
      *
      * @param Colloquium $colloquium
-     * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function decline(Colloquium $colloquium, UpdateRequest $request)
+    public function decline(Colloquium $colloquium)
     {
       $colloquium->status = Colloquium::DECLINED;
       $colloquium->save();
@@ -225,11 +233,26 @@ class ColloquiaController extends Controller
     public function update(Colloquium $colloquium, UpdateRequest $request)
     {
 		$colloquium->fill($request->all());
-    $colloquium->changed = 1;
-    $colloquium->save();
+        $colloquium->changed = true;
+        $colloquium->save();
 
 		return redirect()
 			->route('colloquia.show', $colloquium->id)
             ->with('success', 'The colloquium has been edited. This will now be visible in the overview.');
+    }
+
+    /**
+     * Delete specified resource.
+     *
+     * @param Colloquium $colloquium
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Colloquium $colloquium)
+    {
+        $colloquium->delete();
+
+        return redirect()
+            ->route('colloquia.index')
+            ->with('success', 'The colloquium has been removed.');
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Login')
+
 @section('breadcrumbs')
   @include('components.breadcrumbs', [
     'crumbs' => [
@@ -55,13 +57,9 @@
 
               <div class="form-group">
                 <div class="col-md-8 col-md-offset-4">
-                  <button type="submit" class="button button--primary">
-                    Login
-                  </button>
+                  <button type="submit" class="button button--primary">Login</button>
 
-                  <a class="btn btn-link fpw" href="{{ route('password.request') }}">
-                    Forgot Your Password?
-                  </a>
+                  <a class="btn btn-link fpw" href="{{ route('password.request') }}">Forgot Your Password?</a>
                 </div>
               </div>
             </form>

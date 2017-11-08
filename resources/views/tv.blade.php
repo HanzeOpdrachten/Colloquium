@@ -1,5 +1,7 @@
 @extends('layouts.app', ['noHeader' => true])
 
+@section('title', 'Events')
+
 @section('content')
   <div class="column column--two-third">
     @foreach($colloquia as $colloquium)
@@ -21,7 +23,7 @@
       </div>
     @endforeach
   </div>
-  
+
   <div class="box column column--one-third column--last">
       <h1 class="box__title">QR Code</h1>
       <p class="box__content"></p>
